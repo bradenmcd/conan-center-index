@@ -1,0 +1,691 @@
+diff -u -r '--exclude=.git' a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2024-07-26 03:32:25.478173419 -0400
++++ b/CMakeLists.txt	2024-07-26 03:32:45.530237402 -0400
+@@ -16,7 +16,7 @@
+ endif()
+ 
+ # s2geometry needs to use the same C++ standard that absl used to avoid
+-# undefined symbol errors since ABSL_HAVE_STD_STRING_VIEW etc will
++# undefined symbol errors since SHIELD_ABSL_HAVE_STD_STRING_VIEW etc will
+ # end up defined differently.  There is probably a better way to achieve
+ # this than assuming what absl used.
+ # Using CACHE allows the user to override the default.
+@@ -45,7 +45,7 @@
+ feature_summary(WHAT ALL)
+ 
+ # Don't output anything for LOG(INFO).
+-add_definitions(-DABSL_MIN_LOG_LEVEL=1)
++add_definitions(-DSHIELD_ABSL_MIN_LOG_LEVEL=1)
+ 
+ # If we already have abseil we don't need to find it, for an example:
+ # add_subdirectory(absl-submbodule)
+diff -u -r '--exclude=.git' a/src/python/s2.i b/src/python/s2.i
+--- a/src/python/s2.i	2024-07-26 03:32:25.462173370 -0400
++++ b/src/python/s2.i	2024-07-26 03:32:45.530237402 -0400
+@@ -46,8 +46,8 @@
+ %define %unignore %rename("%s") %enddef
+ %define %unignoreall %rename("%s") ""; %enddef
+ 
+-%define ABSL_ATTRIBUTE_ALWAYS_INLINE %enddef
+-%define ABSL_DEPRECATED(msg)
++%define SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE %enddef
++%define SHIELD_ABSL_DEPRECATED(msg)
+ %enddef
+ 
+ // SWIG <3.0 does not understand these C++11 keywords (unsure of exact version).
+diff -u -r '--exclude=.git' a/src/s2/base/casts.h b/src/s2/base/casts.h
+--- a/src/s2/base/casts.h	2024-07-26 03:32:25.466173383 -0400
++++ b/src/s2/base/casts.h	2024-07-26 03:32:45.534237415 -0400
+@@ -66,7 +66,7 @@
+                 "target type not derived from source type");
+ 
+ // We skip the assert and hence the dynamic_cast if RTTI is disabled.
+-#if ABSL_INTERNAL_HAS_RTTI
++#if SHIELD_ABSL_INTERNAL_HAS_RTTI
+   // Uses RTTI in dbg and fastbuild. asserts are disabled in opt builds.
+   assert(f == nullptr || dynamic_cast<To>(f) != nullptr);
+ #endif  // !defined(__GNUC__) || defined(__GXX_RTTI)
+@@ -90,7 +90,7 @@
+                 "target type not derived from source type");
+ 
+   // We skip the assert and hence the dynamic_cast if RTTI is disabled.
+-#if ABSL_INTERNAL_HAS_RTTI
++#if SHIELD_ABSL_INTERNAL_HAS_RTTI
+   // RTTI: debug mode only
+   assert(dynamic_cast<std::remove_reference_t<To>*>(&f) != nullptr);
+ #endif  // !defined(__GNUC__) || defined(__GXX_RTTI)
+diff -u -r '--exclude=.git' a/src/s2/base/commandlineflags_declare.h b/src/s2/base/commandlineflags_declare.h
+--- a/src/s2/base/commandlineflags_declare.h	2024-07-26 03:32:25.466173383 -0400
++++ b/src/s2/base/commandlineflags_declare.h	2024-07-26 03:32:45.534237415 -0400
+@@ -22,14 +22,14 @@
+ 
+ #include "s2/base/integral_types.h"
+ 
+-#define S2_DECLARE_bool(name) ABSL_DECLARE_FLAG(bool, name)
++#define S2_DECLARE_bool(name) SHIELD_ABSL_DECLARE_FLAG(bool, name)
+ 
+-#define S2_DECLARE_double(name) ABSL_DECLARE_FLAG(double, name)
++#define S2_DECLARE_double(name) SHIELD_ABSL_DECLARE_FLAG(double, name)
+ 
+-#define S2_DECLARE_int32(name) ABSL_DECLARE_FLAG(int32, name)
++#define S2_DECLARE_int32(name) SHIELD_ABSL_DECLARE_FLAG(int32, name)
+ 
+-#define S2_DECLARE_int64(name) ABSL_DECLARE_FLAG(int64, name)
++#define S2_DECLARE_int64(name) SHIELD_ABSL_DECLARE_FLAG(int64, name)
+ 
+-#define S2_DECLARE_string(name) ABSL_DECLARE_FLAG(std::string, name)
++#define S2_DECLARE_string(name) SHIELD_ABSL_DECLARE_FLAG(std::string, name)
+ 
+ #endif  // S2_BASE_COMMANDLINEFLAGS_DECLARE_H_
+diff -u -r '--exclude=.git' a/src/s2/base/commandlineflags.h b/src/s2/base/commandlineflags.h
+--- a/src/s2/base/commandlineflags.h	2024-07-26 03:32:25.466173383 -0400
++++ b/src/s2/base/commandlineflags.h	2024-07-26 03:32:45.534237415 -0400
+@@ -24,18 +24,18 @@
+ #include "s2/base/integral_types.h"
+ 
+ #define S2_DEFINE_bool(name, default_value, description) \
+-  ABSL_FLAG(bool, name, default_value, description)
++  SHIELD_ABSL_FLAG(bool, name, default_value, description)
+ 
+ #define S2_DEFINE_double(name, default_value, description) \
+-  ABSL_FLAG(double, name, default_value, description)
++  SHIELD_ABSL_FLAG(double, name, default_value, description)
+ 
+ #define S2_DEFINE_int32(name, default_value, description) \
+-  ABSL_FLAG(int32, name, default_value, description)
++  SHIELD_ABSL_FLAG(int32, name, default_value, description)
+ 
+ #define S2_DEFINE_int64(name, default_value, description) \
+-  ABSL_FLAG(int64, name, default_value, description)
++  SHIELD_ABSL_FLAG(int64, name, default_value, description)
+ 
+ #define S2_DEFINE_string(name, default_value, description) \
+-  ABSL_FLAG(std::string, name, default_value, description)
++  SHIELD_ABSL_FLAG(std::string, name, default_value, description)
+ 
+ #endif  // S2_BASE_COMMANDLINEFLAGS_H_
+diff -u -r '--exclude=.git' a/src/s2/encoded_s2point_vector.cc b/src/s2/encoded_s2point_vector.cc
+--- a/src/s2/encoded_s2point_vector.cc	2024-07-26 03:32:25.462173370 -0400
++++ b/src/s2/encoded_s2point_vector.cc	2024-07-26 03:32:45.534237415 -0400
+@@ -188,7 +188,7 @@
+ 
+ bool EncodedS2PointVector::InitUncompressedFormat(Decoder* decoder) {
+ #if !defined(IS_LITTLE_ENDIAN) || defined(__arm__) || \
+-  defined(ABSL_INTERNAL_NEED_ALIGNED_LOADS)
++  defined(SHIELD_ABSL_INTERNAL_NEED_ALIGNED_LOADS)
+   // TODO(b/231674214): Make this work on platforms that don't support
+   // unaligned 64-bit little-endian reads, e.g. by falling back to
+   //
+diff -u -r '--exclude=.git' a/src/s2/encoded_uint_vector.h b/src/s2/encoded_uint_vector.h
+--- a/src/s2/encoded_uint_vector.h	2024-07-26 03:32:25.462173370 -0400
++++ b/src/s2/encoded_uint_vector.h	2024-07-26 03:32:45.538237427 -0400
+@@ -173,19 +173,19 @@
+   // following page in the address space is unmapped.)
+ 
+   if (length & sizeof(T)) {
+-    if (sizeof(T) == 8) return ABSL_INTERNAL_UNALIGNED_LOAD64(ptr);
+-    if (sizeof(T) == 4) return ABSL_INTERNAL_UNALIGNED_LOAD32(ptr);
+-    if (sizeof(T) == 2) return ABSL_INTERNAL_UNALIGNED_LOAD16(ptr);
++    if (sizeof(T) == 8) return SHIELD_ABSL_INTERNAL_UNALIGNED_LOAD64(ptr);
++    if (sizeof(T) == 4) return SHIELD_ABSL_INTERNAL_UNALIGNED_LOAD32(ptr);
++    if (sizeof(T) == 2) return SHIELD_ABSL_INTERNAL_UNALIGNED_LOAD16(ptr);
+     S2_DCHECK_EQ(sizeof(T), 1);
+     return *ptr;
+   }
+   T x = 0;
+   ptr += length;
+   if (sizeof(T) > 4 && (length & 4)) {
+-    x = ABSL_INTERNAL_UNALIGNED_LOAD32(ptr -= sizeof(uint32));
++    x = SHIELD_ABSL_INTERNAL_UNALIGNED_LOAD32(ptr -= sizeof(uint32));
+   }
+   if (sizeof(T) > 2 && (length & 2)) {
+-    x = (x << 16) + ABSL_INTERNAL_UNALIGNED_LOAD16(ptr -= sizeof(uint16));
++    x = (x << 16) + SHIELD_ABSL_INTERNAL_UNALIGNED_LOAD16(ptr -= sizeof(uint16));
+   }
+   if (sizeof(T) > 1 && (length & 1)) {
+     x = (x << 8) + static_cast<uint8>(*--ptr);
+diff -u -r '--exclude=.git' a/src/s2/mutable_s2shape_index.cc b/src/s2/mutable_s2shape_index.cc
+--- a/src/s2/mutable_s2shape_index.cc	2024-07-26 03:32:25.462173370 -0400
++++ b/src/s2/mutable_s2shape_index.cc	2024-07-26 03:32:45.534237415 -0400
+@@ -409,7 +409,7 @@
+   crosser_.Init(&a_, &b_);
+ }
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE  // ~1% faster
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE  // ~1% faster
+     inline void
+     MutableS2ShapeIndex::InteriorTracker::TestEdge(int32 shape_id,
+                                                    const S2Shape::Edge& edge) {
+@@ -1336,7 +1336,7 @@
+ // Given an edge and an interval "middle" along the v-axis, clip the edge
+ // against the boundaries of "middle" and add the edge to the corresponding
+ // children.
+-/* static */ ABSL_ATTRIBUTE_ALWAYS_INLINE  // ~8% faster
++/* static */ SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE  // ~8% faster
+ inline void MutableS2ShapeIndex::ClipVAxis(
+     const ClippedEdge* edge,
+     const R1Interval& middle,
+diff -u -r '--exclude=.git' a/src/s2/mutable_s2shape_index.h b/src/s2/mutable_s2shape_index.h
+--- a/src/s2/mutable_s2shape_index.h	2024-07-26 03:32:25.470173395 -0400
++++ b/src/s2/mutable_s2shape_index.h	2024-07-26 03:32:45.554237479 -0400
+@@ -585,8 +585,8 @@
+ 
+ #ifndef SWIG
+   // Documented in the .cc file.
+-  void UnlockAndSignal() ABSL_UNLOCK_FUNCTION(lock_)
+-      ABSL_UNLOCK_FUNCTION(update_state_->wait_mutex);
++  void UnlockAndSignal() SHIELD_ABSL_UNLOCK_FUNCTION(lock_)
++      SHIELD_ABSL_UNLOCK_FUNCTION(update_state_->wait_mutex);
+ #endif
+ 
+   MutableS2ShapeIndex(const MutableS2ShapeIndex&) = delete;
+diff -u -r '--exclude=.git' a/src/s2/s2builderutil_lax_polygon_layer_test.cc b/src/s2/s2builderutil_lax_polygon_layer_test.cc
+--- a/src/s2/s2builderutil_lax_polygon_layer_test.cc	2024-07-26 03:32:25.474173407 -0400
++++ b/src/s2/s2builderutil_lax_polygon_layer_test.cc	2024-07-26 03:32:45.574237542 -0400
+@@ -70,7 +70,7 @@
+   }
+   // Cases are exhaustive, but some compilers don't know that and emit a
+   // warning.
+-  ABSL_UNREACHABLE();
++  SHIELD_ABSL_UNREACHABLE();
+ }
+ 
+ void TestLaxPolygon(string_view input_str, string_view expected_str,
+diff -u -r '--exclude=.git' a/src/s2/s2cell_id.h b/src/s2/s2cell_id.h
+--- a/src/s2/s2cell_id.h	2024-07-26 03:32:25.462173370 -0400
++++ b/src/s2/s2cell_id.h	2024-07-26 03:32:45.538237427 -0400
+@@ -495,8 +495,8 @@
+   static S2CellId FromFaceIJSame(int face, int i, int j, bool same_face);
+ 
+   uint64 id_;
+-} ABSL_ATTRIBUTE_PACKED;  // Necessary so that structures containing S2CellId's
+-                          // can be ABSL_ATTRIBUTE_PACKED.
++} SHIELD_ABSL_ATTRIBUTE_PACKED;  // Necessary so that structures containing S2CellId's
++                          // can be SHIELD_ABSL_ATTRIBUTE_PACKED.
+ 
+ inline bool operator==(S2CellId x, S2CellId y) {
+   return x.id() == y.id();
+diff -u -r '--exclude=.git' a/src/s2/s2cell_iterator_join.h b/src/s2/s2cell_iterator_join.h
+--- a/src/s2/s2cell_iterator_join.h	2024-07-26 03:32:25.470173395 -0400
++++ b/src/s2/s2cell_iterator_join.h	2024-07-26 03:32:45.550237463 -0400
+@@ -435,7 +435,7 @@
+       return matches;
+     }
+   }
+-  ABSL_UNREACHABLE();
++  SHIELD_ABSL_UNREACHABLE();
+ }
+ 
+ #endif  // S2_S2CELL_ITERATOR_JOIN_H_
+diff -u -r '--exclude=.git' a/src/s2/s2edge_distances.cc b/src/s2/s2edge_distances.cc
+--- a/src/s2/s2edge_distances.cc	2024-07-26 03:32:25.466173383 -0400
++++ b/src/s2/s2edge_distances.cc	2024-07-26 03:32:45.542237439 -0400
+@@ -394,7 +394,7 @@
+     case B0: return std::make_pair(Project(b0, a0, a1), b0);
+     case B1: return std::make_pair(Project(b1, a0, a1), b1);
+   }
+-  ABSL_UNREACHABLE();
++  SHIELD_ABSL_UNREACHABLE();
+ }
+ 
+ // TODO(ericv): Optimize this function to use S1ChordAngle rather than S1Angle.
+diff -u -r '--exclude=.git' a/src/s2/s2error.cc b/src/s2/s2error.cc
+--- a/src/s2/s2error.cc	2024-07-26 03:32:25.470173395 -0400
++++ b/src/s2/s2error.cc	2024-07-26 03:32:45.578237555 -0400
+@@ -145,5 +145,5 @@
+       return shield_absl::UnknownError(
+           shield_absl::StrCat(error.text(), " (", error.code(), ")"));
+   }
+-  ABSL_UNREACHABLE();
++  SHIELD_ABSL_UNREACHABLE();
+ }
+diff -u -r '--exclude=.git' a/src/s2/s2error.h b/src/s2/s2error.h
+--- a/src/s2/s2error.h	2024-07-26 03:32:25.466173383 -0400
++++ b/src/s2/s2error.h	2024-07-26 03:32:45.546237452 -0400
+@@ -159,7 +159,7 @@
+ //
+ // shield_absl::Status codes with no exact equivalent in S2Error::Code are converted to
+ // S2Error::UNKNOWN.
+-ABSL_MUST_USE_RESULT S2Error ToS2Error(const shield_absl::Status& status);
++SHIELD_ABSL_MUST_USE_RESULT S2Error ToS2Error(const shield_absl::Status& status);
+ 
+ // Converts an S2Error into an shield_absl::Status.
+ //
+diff -u -r '--exclude=.git' a/src/s2/s2lax_polygon_shape.h b/src/s2/s2lax_polygon_shape.h
+--- a/src/s2/s2lax_polygon_shape.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/s2lax_polygon_shape.h	2024-07-26 03:32:45.582237567 -0400
+@@ -236,7 +236,7 @@
+ //////////////////   Implementation details follow   ////////////////////
+ 
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE
+ inline S2Shape::Edge S2LaxPolygonShape::chain_edge(int i, int j) const {
+   S2_DCHECK_LT(i, num_loops());
+   S2_DCHECK_LT(j, num_loop_vertices(i));
+@@ -250,7 +250,7 @@
+   }
+ }
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE
+ inline S2Shape::ChainPosition S2LaxPolygonShape::chain_position(int e) const {
+   S2_DCHECK_LT(e, num_edges());
+   if (num_loops() == 1) {
+@@ -281,7 +281,7 @@
+   return ChainPosition(start - &loop_starts_[0], e - start[0]);
+ }
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE
+ inline S2Shape::Edge EncodedS2LaxPolygonShape::chain_edge(int i, int j) const {
+   S2_DCHECK_LT(i, num_loops());
+   S2_DCHECK_LT(j, num_loop_vertices(i));
+@@ -295,7 +295,7 @@
+   }
+ }
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE
+ inline S2Shape::ChainPosition EncodedS2LaxPolygonShape::chain_position(int e)
+     const {
+   S2_DCHECK_LT(e, num_edges());
+diff -u -r '--exclude=.git' a/src/s2/s2polygon.h b/src/s2/s2polygon.h
+--- a/src/s2/s2polygon.h	2024-07-26 03:32:25.470173395 -0400
++++ b/src/s2/s2polygon.h	2024-07-26 03:32:45.554237479 -0400
+@@ -941,7 +941,7 @@
+ //////////////////   Implementation details follow   ////////////////////
+ 
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE
+ inline S2Shape::Edge S2Polygon::Shape::chain_edge(int i, int j) const {
+   S2_DCHECK_LT(i, Shape::num_chains());
+   const S2Loop* loop = polygon_->loop(i);
+@@ -949,7 +949,7 @@
+   return Edge(loop->oriented_vertex(j), loop->oriented_vertex(j + 1));
+ }
+ 
+-ABSL_ATTRIBUTE_ALWAYS_INLINE
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE
+ inline S2Shape::ChainPosition S2Polygon::Shape::chain_position(int e) const {
+   S2_DCHECK_LT(e, num_edges());
+   int i;
+diff -u -r '--exclude=.git' a/src/s2/s2shape_index_region.h b/src/s2/s2shape_index_region.h
+--- a/src/s2/s2shape_index_region.h	2024-07-26 03:32:25.470173395 -0400
++++ b/src/s2/s2shape_index_region.h	2024-07-26 03:32:45.570237527 -0400
+@@ -400,7 +400,7 @@
+       return true;
+     }
+   }
+-  ABSL_UNREACHABLE();
++  SHIELD_ABSL_UNREACHABLE();
+ }
+ 
+ template <class IndexType>
+diff -u -r '--exclude=.git' a/src/s2/s2text_format.h b/src/s2/s2text_format.h
+--- a/src/s2/s2text_format.h	2024-07-26 03:32:25.474173407 -0400
++++ b/src/s2/s2text_format.h	2024-07-26 03:32:45.562237503 -0400
+@@ -63,9 +63,9 @@
+ 
+ // As above, but do not S2_CHECK-fail on invalid input. Returns true if conversion
+ // is successful.
+-ABSL_MUST_USE_RESULT bool MakePoint(shield_absl::string_view str, S2Point* point);
++SHIELD_ABSL_MUST_USE_RESULT bool MakePoint(shield_absl::string_view str, S2Point* point);
+ 
+-ABSL_DEPRECATED("Inline the implementation")
++SHIELD_ABSL_DEPRECATED("Inline the implementation")
+ inline S2Point MakePoint(shield_absl::string_view str) { return MakePointOrDie(str); }
+ 
+ // Parses a string of one or more latitude-longitude coordinates in degrees,
+@@ -78,10 +78,10 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool ParseLatLngs(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool ParseLatLngs(shield_absl::string_view str,
+                                 std::vector<S2LatLng>* latlngs);
+ 
+-ABSL_DEPRECATED("Inline the implementation")
++SHIELD_ABSL_DEPRECATED("Inline the implementation")
+ inline std::vector<S2LatLng> ParseLatLngs(shield_absl::string_view str) {
+   return ParseLatLngsOrDie(str);
+ }
+@@ -92,7 +92,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool ParsePoints(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool ParsePoints(shield_absl::string_view str,
+                                std::vector<S2Point>* vertices);
+ 
+ // Given a string in the same format as ParseLatLngs, returns a single S2LatLng.
+@@ -100,7 +100,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeLatLng(shield_absl::string_view str, S2LatLng* latlng);
++SHIELD_ABSL_MUST_USE_RESULT bool MakeLatLng(shield_absl::string_view str, S2LatLng* latlng);
+ 
+ // Given a string in the same format as ParseLatLngs, returns the minimal
+ // bounding S2LatLngRect that contains the coordinates.
+@@ -108,9 +108,9 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeLatLngRect(shield_absl::string_view str, S2LatLngRect* rect);
++SHIELD_ABSL_MUST_USE_RESULT bool MakeLatLngRect(shield_absl::string_view str, S2LatLngRect* rect);
+ 
+-ABSL_DEPRECATED("Inline the implementation")
++SHIELD_ABSL_DEPRECATED("Inline the implementation")
+ inline S2LatLngRect MakeLatLngRect(shield_absl::string_view str) {
+   return MakeLatLngRectOrDie(str);
+ }
+@@ -128,7 +128,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeCellId(shield_absl::string_view str, S2CellId* cell_id);
++SHIELD_ABSL_MUST_USE_RESULT bool MakeCellId(shield_absl::string_view str, S2CellId* cell_id);
+ 
+ // Parses a comma-separated list of S2CellIds in the format above, and returns
+ // the corresponding S2CellUnion.  (Note that S2CellUnions are automatically
+@@ -138,7 +138,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeCellUnion(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool MakeCellUnion(shield_absl::string_view str,
+                                  S2CellUnion* cell_union);
+ 
+ // Given a string of latitude-longitude coordinates in degrees,
+@@ -150,7 +150,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeLoop(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool MakeLoop(shield_absl::string_view str,
+                             std::unique_ptr<S2Loop>* loop,
+                             S2Debug debug_override = S2Debug::ALLOW);
+ 
+@@ -161,7 +161,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakePolyline(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool MakePolyline(shield_absl::string_view str,
+                                 std::unique_ptr<S2Polyline>* polyline,
+                                 S2Debug debug_override = S2Debug::ALLOW);
+ 
+@@ -170,7 +170,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeLaxPolyline(
++SHIELD_ABSL_MUST_USE_RESULT bool MakeLaxPolyline(
+     shield_absl::string_view str, std::unique_ptr<S2LaxPolylineShape>* lax_polyline);
+ 
+ // Given a sequence of loops separated by semicolons, returns a newly
+@@ -192,11 +192,11 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakePolygon(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool MakePolygon(shield_absl::string_view str,
+                                std::unique_ptr<S2Polygon>* polygon,
+                                S2Debug debug_override = S2Debug::ALLOW);
+ 
+-ABSL_DEPRECATED("Inline the implementation")
++SHIELD_ABSL_DEPRECATED("Inline the implementation")
+ inline std::unique_ptr<S2Polygon> MakePolygon(
+     shield_absl::string_view str, S2Debug debug_override = S2Debug::ALLOW) {
+   return MakePolygonOrDie(str, debug_override);
+@@ -208,7 +208,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeVerbatimPolygon(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool MakeVerbatimPolygon(shield_absl::string_view str,
+                                        std::unique_ptr<S2Polygon>* polygon);
+ 
+ // Parses a string in the same format as MakePolygon, except that loops must
+@@ -219,7 +219,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeLaxPolygon(
++SHIELD_ABSL_MUST_USE_RESULT bool MakeLaxPolygon(
+     shield_absl::string_view str, std::unique_ptr<S2LaxPolygonShape>* lax_polygon);
+ 
+ // Returns a MutableS2ShapeIndex containing the points, polylines, and loops
+@@ -250,7 +250,7 @@
+ 
+ // As above, but does not S2_CHECK-fail on invalid input. Returns true if
+ // conversion is successful.
+-ABSL_MUST_USE_RESULT bool MakeIndex(shield_absl::string_view str,
++SHIELD_ABSL_MUST_USE_RESULT bool MakeIndex(shield_absl::string_view str,
+                              std::unique_ptr<MutableS2ShapeIndex>* index);
+ 
+ // Convert an S2Point, S2LatLng, S2LatLngRect, S2CellId, S2CellUnion, loop,
+diff -u -r '--exclude=.git' a/src/s2/s2winding_operation.cc b/src/s2/s2winding_operation.cc
+--- a/src/s2/s2winding_operation.cc	2024-07-26 03:32:25.474173407 -0400
++++ b/src/s2/s2winding_operation.cc	2024-07-26 03:32:45.562237503 -0400
+@@ -421,7 +421,7 @@
+     case WindingRule::NON_ZERO:  return winding != 0;
+     case WindingRule::ODD:       return (winding & 1) != 0;
+   }
+-  ABSL_UNREACHABLE();
++  SHIELD_ABSL_UNREACHABLE();
+ }
+ 
+ bool WindingLayer::MatchesDegeneracy(int winding, int winding_minus,
+diff -u -r '--exclude=.git' a/src/s2/util/bits/bits.h b/src/s2/util/bits/bits.h
+--- a/src/s2/util/bits/bits.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/bits/bits.h	2024-07-26 03:32:45.558237491 -0400
+@@ -20,18 +20,18 @@
+ #include "shield_absl/base/optimization.h"
+ #include "shield_absl/numeric/bits.h"
+ 
+-// abseil only exposed ABSL_ASSUME in abseil/abseil-cpp@231c393 on 2022-03-16.
+-// This is not in an LTS as of 2022-04.  Use either ABSL_ASSUME or
+-// ABSL_INTERNAL_ASSUME, depending on which is available.
+-// TODO: Remove this and just use ABSL_ASSUME when it is in an LTS release.
++// abseil only exposed SHIELD_ABSL_ASSUME in abseil/abseil-cpp@231c393 on 2022-03-16.
++// This is not in an LTS as of 2022-04.  Use either SHIELD_ABSL_ASSUME or
++// SHIELD_ABSL_INTERNAL_ASSUME, depending on which is available.
++// TODO: Remove this and just use SHIELD_ABSL_ASSUME when it is in an LTS release.
+ // TODO: Further investigate whether ASSUME is needed at all, or if clang
+ // and gcc can prove the argument is non-zero where these are used.
+-#if defined(ABSL_ASSUME)
+-#define S2_ASSUME(cond) ABSL_ASSUME(cond)
+-#elif defined(ABSL_INTERNAL_ASSUME)
+-#define S2_ASSUME(cond) ABSL_INTERNAL_ASSUME(cond)
++#if defined(SHIELD_ABSL_ASSUME)
++#define S2_ASSUME(cond) SHIELD_ABSL_ASSUME(cond)
++#elif defined(SHIELD_ABSL_INTERNAL_ASSUME)
++#define S2_ASSUME(cond) SHIELD_ABSL_INTERNAL_ASSUME(cond)
+ #else
+-#error "abseil-cpp must provide ABSL_ASSUME or ABSL_INTERNAL_ASSUME, what version are you using?"
++#error "abseil-cpp must provide SHIELD_ABSL_ASSUME or SHIELD_ABSL_INTERNAL_ASSUME, what version are you using?"
+ #endif
+ 
+ // Use namespace because this used to be a static class.
+diff -u -r '--exclude=.git' a/src/s2/util/coding/coder.h b/src/s2/util/coding/coder.h
+--- a/src/s2/util/coding/coder.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/coding/coder.h	2024-07-26 03:32:45.554237479 -0400
+@@ -176,13 +176,13 @@
+       auto* l = reinterpret_cast<char*>(enc->limit_);
+       while (*mem != '\0' && p < l) *p++ = *mem++;
+     }
+-    ABSL_ATTRIBUTE_ALWAYS_INLINE void put_varint32(uint32 v) {
++    SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE void put_varint32(uint32 v) {
+       p = Varint::Encode32(p, v);
+     }
+-    ABSL_ATTRIBUTE_ALWAYS_INLINE void put_varint32_inline(uint32 v) {
++    SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE void put_varint32_inline(uint32 v) {
+       p = Varint::Encode32Inline(p, v);
+     }
+-    ABSL_ATTRIBUTE_ALWAYS_INLINE void put_varint64(uint64 v) {
++    SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE void put_varint64(uint64 v) {
+       p = Varint::Encode64(p, v);
+     }
+   };
+@@ -246,7 +246,7 @@
+   void   gets(void* mem, size_t n);            // get a c-string no more than
+                                                // n bytes. always appends '\0'
+   const char* skip(ptrdiff_t n);
+-  ABSL_DEPRECATED("use skip(0) instead")
++  SHIELD_ABSL_DEPRECATED("use skip(0) instead")
+   unsigned char const* ptr() const;  // Return ptr to current position in buffer
+ 
+   // "get_varint" actually checks bounds
+@@ -342,7 +342,7 @@
+ 
+   // Check once if both the encoder and the decoder have enough room for
+   // maximum varint64 (kVarintMax64) instead of checking at every bytes.
+-  if (ABSL_PREDICT_TRUE(dec_ptr <= dec_limit - kVarintMax64 &&
++  if (SHIELD_ABSL_PREDICT_TRUE(dec_ptr <= dec_limit - kVarintMax64 &&
+                         buf_ <= limit_ - kVarintMax64)) {
+     if (dec_ptr[2] < 128) {
+       CopyAndAdvance<3>(&dec->buf_, &buf_);
+@@ -402,14 +402,14 @@
+ // over-inlining, PutVarint64FromDecoderLessCommonSizes is defined in coder.cc.
+ // As Untranspose::DecodeMessage is the only caller, compiler should be able to
+ // inline all if necessary.
+-ABSL_ATTRIBUTE_ALWAYS_INLINE inline bool Encoder::put_varint64_from_decoder(
++SHIELD_ABSL_ATTRIBUTE_ALWAYS_INLINE inline bool Encoder::put_varint64_from_decoder(
+     Decoder* dec) {
+   unsigned char* enc_ptr = buf_;
+   const unsigned char* dec_ptr = dec->buf_;
+ 
+   // Common cases to handle varint64 with one to two bytes.
+-  if (ABSL_PREDICT_TRUE(dec_ptr < dec->limit_ && dec_ptr[0] < 128)) {
+-    if (ABSL_PREDICT_FALSE(enc_ptr >= limit_)) {
++  if (SHIELD_ABSL_PREDICT_TRUE(dec_ptr < dec->limit_ && dec_ptr[0] < 128)) {
++    if (SHIELD_ABSL_PREDICT_FALSE(enc_ptr >= limit_)) {
+       return false;
+     }
+     *enc_ptr = *dec_ptr;
+@@ -419,7 +419,7 @@
+   }
+ 
+   if (dec_ptr < dec->limit_ - 1 && dec_ptr[1] < 128) {
+-    if (ABSL_PREDICT_FALSE(enc_ptr >= limit_ - 1)) {
++    if (SHIELD_ABSL_PREDICT_FALSE(enc_ptr >= limit_ - 1)) {
+       return false;
+     }
+     UNALIGNED_STORE16(enc_ptr, UNALIGNED_LOAD16(dec_ptr));
+diff -u -r '--exclude=.git' a/src/s2/util/coding/varint.cc b/src/s2/util/coding/varint.cc
+--- a/src/s2/util/coding/varint.cc	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/coding/varint.cc	2024-07-26 03:32:45.554237479 -0400
+@@ -123,7 +123,7 @@
+   // Last byte only contains 0 or 1 for valid 64bit varints. If it's 0 it's
+   // a denormalized varint that shouldn't happen. The continuation bit of byte
+   // 9 has already the right value hence just expect byte to be 1.
+-  if (ABSL_PREDICT_TRUE(byte == 1)) goto done10;
++  if (SHIELD_ABSL_PREDICT_TRUE(byte == 1)) goto done10;
+   if (byte == 0) {
+     res3 ^= static_cast<uint64>(1) << 63;
+     goto done10;
+diff -u -r '--exclude=.git' a/src/s2/util/coding/varint.h b/src/s2/util/coding/varint.h
+--- a/src/s2/util/coding/varint.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/coding/varint.h	2024-07-26 03:32:45.554237479 -0400
+@@ -131,7 +131,7 @@
+   //            encoding this value as a Varint64 value.  This means
+   //            that if both a and b are small, both values can be
+   //            encoded in a single byte.
+-  ABSL_DEPRECATED("Use TwoValuesVarint::Encode32.")
++  SHIELD_ABSL_DEPRECATED("Use TwoValuesVarint::Encode32.")
+   static void EncodeTwo32Values(std::string* s, uint32 a, uint32 b);
+ 
+   // Decode and sum up a sequence of deltas until the sum >= goal.
+@@ -299,7 +299,7 @@
+     return reinterpret_cast<const char*>(ptr) + 1;
+   } else {
+     auto tmp = Parse64FallbackPair(p, byte);
+-    if (ABSL_PREDICT_TRUE(tmp.first)) *OUTPUT = tmp.second;
++    if (SHIELD_ABSL_PREDICT_TRUE(tmp.first)) *OUTPUT = tmp.second;
+     return tmp.first;
+   }
+ #else
+diff -u -r '--exclude=.git' a/src/s2/util/endian/endian.h b/src/s2/util/endian/endian.h
+--- a/src/s2/util/endian/endian.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/endian/endian.h	2024-07-26 03:32:45.558237491 -0400
+@@ -249,7 +249,7 @@
+   //
+   // The caller needs to guarantee that 0 <= len <= 8.
+   static uint64 Load64VariableLength(const void* const p, int len) {
+-    ABSL_ASSUME(len >= 0 && len <= 8);
++    SHIELD_ABSL_ASSUME(len >= 0 && len <= 8);
+     uint64 val = 0;
+     const uint8* const src = static_cast<const uint8*>(p);
+     for (int i = 0; i < len; ++i) {
+diff -u -r '--exclude=.git' a/src/s2/util/gtl/dense_hash_set.h b/src/s2/util/gtl/dense_hash_set.h
+--- a/src/s2/util/gtl/dense_hash_set.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/gtl/dense_hash_set.h	2024-07-26 03:32:45.558237491 -0400
+@@ -181,12 +181,12 @@
+   iterator end() const                    { return rep.end(); }
+ 
+   // These come from tr1's unordered_set. For us, a bucket has 0 or 1 elements.
+-  ABSL_DEPRECATED(
++  SHIELD_ABSL_DEPRECATED(
+       "This method is slated for removal.  Please migrate to "
+       "shield_absl::flat_hash_set.")
+   local_iterator begin(size_type i) const { return rep.begin(i); }
+ 
+-  ABSL_DEPRECATED(
++  SHIELD_ABSL_DEPRECATED(
+       "This method is slated for removal.  Please migrate to "
+       "shield_absl::flat_hash_set.")
+   local_iterator end(size_type i) const   { return rep.end(i); }
+@@ -237,17 +237,17 @@
+   bool empty() const                  { return rep.empty(); }
+   size_type bucket_count() const      { return rep.bucket_count(); }
+ 
+-  ABSL_DEPRECATED(
++  SHIELD_ABSL_DEPRECATED(
+       "This method is slated for removal.  Please migrate to "
+       "shield_absl::flat_hash_set.")
+   size_type max_bucket_count() const  { return rep.max_bucket_count(); }
+ 
+   // These are tr1 methods.  bucket() is the bucket the key is or would be in.
+-  ABSL_DEPRECATED(
++  SHIELD_ABSL_DEPRECATED(
+       "This method is slated for removal.  Please migrate to "
+       "shield_absl::flat_hash_set.")
+   size_type bucket_size(size_type i) const    { return rep.bucket_size(i); }
+-  ABSL_DEPRECATED(
++  SHIELD_ABSL_DEPRECATED(
+       "This method is slated for removal.  Please migrate to "
+       "shield_absl::flat_hash_set.")
+   size_type bucket(const key_type& key) const { return rep.bucket(key); }
+@@ -265,7 +265,7 @@
+     rep.set_resizing_parameters(shrink, new_grow);
+   }
+   // These aren't tr1 methods but perhaps ought to be.
+-  ABSL_DEPRECATED(
++  SHIELD_ABSL_DEPRECATED(
+       "This method is slated for removal.  Please migrate to "
+       "shield_absl::flat_hash_set.")
+   float min_load_factor() const {
+diff -u -r '--exclude=.git' a/src/s2/util/gtl/legacy_random_shuffle.h b/src/s2/util/gtl/legacy_random_shuffle.h
+--- a/src/s2/util/gtl/legacy_random_shuffle.h	2024-07-26 03:32:25.478173419 -0400
++++ b/src/s2/util/gtl/legacy_random_shuffle.h	2024-07-26 03:32:45.558237491 -0400
+@@ -47,7 +47,7 @@
+ // This function is deprecated.  See the file comment above for
+ // additional details.
+ template <class RandomIt, class RandomFunc>
+-ABSL_DEPRECATED("Use std::shuffle instead; see go/nors-legacy-api")
++SHIELD_ABSL_DEPRECATED("Use std::shuffle instead; see go/nors-legacy-api")
+ void legacy_random_shuffle(const RandomIt begin, const RandomIt end,
+                            RandomFunc&& rnd) {
+   auto size = std::distance(begin, end);
+@@ -63,7 +63,7 @@
+ // This function is deprecated.  See the file comment above for
+ // additional details.
+ template <class RandomIt>
+-ABSL_DEPRECATED("Use std::shuffle instead; see go/nors-legacy-api")
++SHIELD_ABSL_DEPRECATED("Use std::shuffle instead; see go/nors-legacy-api")
+ void legacy_random_shuffle(RandomIt begin, RandomIt end) {
+   legacy_random_shuffle(
+       begin, end,

@@ -3,7 +3,7 @@ from conan.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import apply_conandata_patches, copy, export_conandata_patches, get, replace_in_file, rmdir, save
 from conan.tools.microsoft import check_min_vs, is_msvc, msvc_runtime_flag
-from conan.tools.scm import Version
+from conan.tools.scm import Version, Git
 import os
 import textwrap
 
@@ -134,7 +134,7 @@ class GtsamConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("boost/1.84.0", transitive_headers=True)
+        self.requires("boost/1.71.0", transitive_headers=True)
         self.requires("eigen/3.4.0", transitive_headers=True)
         if self.options.with_TBB:
             if Version(self.version) >= "4.1":
@@ -197,7 +197,16 @@ class GtsamConan(ConanFile):
             raise ConanInvalidConfiguration("GTSAM does not support METIS with 64-bit types")
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        if ("tag" in self.conan_data["sources"][self.version]):
+            repo = url=self.conan_data["sources"][self.version]["url"]
+            tag = self.conan_data["sources"][self.version]["tag"]
+
+            git = Git(self)
+            git.clone(repo, target=".")
+            git.folder = "."     
+            git.checkout(tag)
+        else:
+            get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -271,7 +280,8 @@ class GtsamConan(ConanFile):
         tc.generate()
 
         deps = CMakeDeps(self)
-        deps.set_property("metis", "cmake_target_name", "metis-gtsam-if")
+        if self.options.support_nested_dissection:
+            deps.set_property("metis", "cmake_target_name", "metis-gtsam-if")
         deps.generate()
 
     def _patch_sources(self):
@@ -303,8 +313,9 @@ class GtsamConan(ConanFile):
                             'GTSAM_ADDITIONAL_LIBRARIES "gperftools::gperftools"')
 
         # Fix HandleMetis.cmake incompatibility with METIS from Conan
-        save(self, os.path.join(self.source_folder, "cmake", "HandleMetis.cmake"),
-             "find_package(metis REQUIRED CONFIG)\n")
+        if self.options.support_nested_dissection:
+            save(self, os.path.join(self.source_folder, "cmake", "HandleMetis.cmake"),
+                 "find_package(metis REQUIRED CONFIG)\n")
 
         # Fix TBB handling
         handle_tbb_path = os.path.join(self.source_folder, "cmake", "HandleTBB.cmake")

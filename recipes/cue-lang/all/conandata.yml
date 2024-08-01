@@ -1,0 +1,9 @@
+patches: {}
+artifacts:
+  '0.4.3':
+    'amd64':
+      sha256: 5e7ecb614b5926acfc36eb1258800391ab7c6e6e026fa7cacbfe92006bac895c 
+      url: https://artifactory.shield.ai:443/artifactory/third-party-sources/github.com/cue-lang/cue/releases/download/v0.4.3/cue_v0.4.3_linux_amd64.tar.gz
+    'arm64':
+      sha256: a8c3f4140d18c324cc69f5de4df0566e529e1636cff340095a42475799bf3fed
+      url: https://artifactory.shield.ai:443/artifactory/third-party-sources/github.com/cue-lang/cue/releases/download/v0.4.3/cue_v0.4.3_linux_arm64.tar.gz

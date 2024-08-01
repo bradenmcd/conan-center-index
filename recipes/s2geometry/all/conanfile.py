@@ -4,7 +4,13 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import get, copy, rmdir, export_conandata_patches, apply_conandata_patches
+from conan.tools.files import (
+    get,
+    copy,
+    rmdir,
+    export_conandata_patches,
+    apply_conandata_patches,
+)
 from conan.tools.microsoft import is_msvc
 from conan.tools.scm import Version
 
@@ -23,10 +29,12 @@ class S2GeometryConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "ignore": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
+        "ignore": True,
     }
 
     @property
@@ -58,21 +66,30 @@ class S2GeometryConan(ConanFile):
         cmake_layout(self, src_folder="src")
 
     def requirements(self):
-        self.requires("abseil/20230802.1", transitive_headers=True, transitive_libs=True)
+        self.requires(
+            "shield_abseil/20240116.2-0", transitive_headers=True, transitive_libs=True
+        )
         self.requires("openssl/[>=1.1 <4]", transitive_headers=True)
 
     def validate(self):
         if self.settings.compiler.cppstd:
             check_min_cppstd(self, self._min_cppstd)
 
-        minimum_version = self._compilers_minimum_version.get(str(self.settings.compiler), False)
-        if minimum_version and Version(self.settings.compiler.version) < minimum_version:
+        minimum_version = self._compilers_minimum_version.get(
+            str(self.settings.compiler), False
+        )
+        if (
+            minimum_version
+            and Version(self.settings.compiler.version) < minimum_version
+        ):
             raise ConanInvalidConfiguration(
                 f"{self.ref} requires C++{self._min_cppstd}, which your compiler does not support."
             )
 
         if is_msvc(self) and self.options.shared:
-            raise ConanInvalidConfiguration(f"{self.ref} can not be built as shared with Visual Studio")
+            raise ConanInvalidConfiguration(
+                f"{self.ref} can not be built as shared with Visual Studio"
+            )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -93,7 +110,12 @@ class S2GeometryConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, pattern="LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(
+            self,
+            pattern="LICENSE",
+            dst=os.path.join(self.package_folder, "licenses"),
+            src=self.source_folder,
+        )
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "share"))

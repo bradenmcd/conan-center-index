@@ -1,0 +1,52 @@
+cmake_minimum_required(VERSION 3.8)
+project(test_package LANGUAGES CXX)
+
+find_package(shield_absl REQUIRED CONFIG)
+
+# Test components
+add_executable(${PROJECT_NAME} test_package.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE shield_absl::strings shield_absl::flat_hash_map shield_absl::flat_hash_set shield_absl::int128 shield_absl::time)
+#   Abseil now requires at least C++14 since 20230125.0
+if(absl_VERSION VERSION_LESS "20230125.0")
+    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
+else()
+    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+endif()
+
+if(cxx_std_14 IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+    add_executable(${PROJECT_NAME}_14 test_package.cpp)
+    target_link_libraries(${PROJECT_NAME}_14 PRIVATE shield_absl::strings shield_absl::flat_hash_map shield_absl::flat_hash_set shield_absl::int128 shield_absl::time)
+    target_compile_features(${PROJECT_NAME}_14 PRIVATE cxx_std_14)
+endif()
+if(cxx_std_17 IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+    add_executable(${PROJECT_NAME}_17 test_package.cpp)
+    target_link_libraries(${PROJECT_NAME}_17 PRIVATE shield_absl::strings shield_absl::flat_hash_map shield_absl::flat_hash_set shield_absl::int128 shield_absl::time)
+    target_compile_features(${PROJECT_NAME}_17 PRIVATE cxx_std_17)
+endif()
+# old abseil used std::result_of (which was removed in C++20) https://github.com/abseil/abseil-cpp/issues/649
+if(CXX20_SUPPORTED)
+    if(cxx_std_20 IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+        add_executable(${PROJECT_NAME}_20 test_package.cpp)
+        target_link_libraries(${PROJECT_NAME}_20 PRIVATE shield_absl::strings shield_absl::flat_hash_map shield_absl::flat_hash_set shield_absl::int128 shield_absl::time)
+        target_compile_features(${PROJECT_NAME}_20 PRIVATE cxx_std_20)
+    endif()
+    if(cxx_std_23 IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+        add_executable(${PROJECT_NAME}_23 test_package.cpp)
+        target_link_libraries(${PROJECT_NAME}_23 PRIVATE shield_absl::strings shield_absl::flat_hash_map shield_absl::flat_hash_set shield_absl::int128 shield_absl::time)
+        target_compile_features(${PROJECT_NAME}_23 PRIVATE cxx_std_23)
+    endif()
+endif()
+
+# Test also (unofficial) global target
+add_executable(${PROJECT_NAME}_global test_package.cpp)
+if(TARGET shield_abseil::shield_abseil)
+    target_link_libraries(${PROJECT_NAME}_global PRIVATE shield_abseil::shield_abseil)
+else()
+    target_link_libraries(${PROJECT_NAME}_global PRIVATE shield_absl::shield_absl)
+endif()
+#   Abseil now requires at least C++14 since 20230125.0
+if(absl_VERSION VERSION_LESS "20230125.0")
+    target_compile_features(${PROJECT_NAME}_global PRIVATE cxx_std_11)
+else()
+    target_compile_features(${PROJECT_NAME}_global PRIVATE cxx_std_14)
+endif()

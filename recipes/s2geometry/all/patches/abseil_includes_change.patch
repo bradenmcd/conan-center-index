@@ -1,0 +1,2486 @@
+diff -N -u -r '--exclude=.git' a/src/python/s2.i b/src/python/s2.i
+--- a/src/python/s2.i	2024-07-26 01:37:08.055968470 -0400
++++ b/src/python/s2.i	2024-07-26 01:37:45.936107030 -0400
+@@ -3,7 +3,7 @@
+ %include "stdint.i"
+ 
+ %{
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ %}
+ 
+ %typemap(typecheck) shield_absl::string_view = char *;
+diff -N -u -r '--exclude=.git' a/src/s2/base/casts.h b/src/s2/base/casts.h
+--- a/src/s2/base/casts.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/base/casts.h	2024-07-26 01:37:45.940107044 -0400
+@@ -29,9 +29,9 @@
+ 
+ #include <type_traits>
+ 
+-#include "absl/base/casts.h"  // IWYU pragma: keep
+-#include "absl/base/config.h"
+-#include "absl/log/log.h"
++#include "shield_absl/base/casts.h"  // IWYU pragma: keep
++#include "shield_absl/base/config.h"
++#include "shield_absl/log/log.h"
+ 
+ #include "s2/base/logging.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/base/commandlineflags_declare.h b/src/s2/base/commandlineflags_declare.h
+--- a/src/s2/base/commandlineflags_declare.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/base/commandlineflags_declare.h	2024-07-26 01:37:45.940107044 -0400
+@@ -18,7 +18,7 @@
+ 
+ #include <string>
+ 
+-#include "absl/flags/declare.h"
++#include "shield_absl/flags/declare.h"
+ 
+ #include "s2/base/integral_types.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/base/commandlineflags.h b/src/s2/base/commandlineflags.h
+--- a/src/s2/base/commandlineflags.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/base/commandlineflags.h	2024-07-26 01:37:45.940107044 -0400
+@@ -18,7 +18,7 @@
+ 
+ #include <string>
+ 
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ 
+ #include "s2/base/commandlineflags_declare.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/base/logging.h b/src/s2/base/logging.h
+--- a/src/s2/base/logging.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/base/logging.h	2024-07-26 01:37:45.940107044 -0400
+@@ -18,8 +18,8 @@
+ 
+ // TODO(user): Get rid of `base/logging.h` includes and
+ // include the relevant absl file directly instead.
+-#include "absl/log/check.h"
+-#include "absl/log/log.h"
++#include "shield_absl/log/check.h"
++#include "shield_absl/log/log.h"
+ #include "s2/base/log_severity.h"
+ 
+ // The names CHECK, etc. are too common and may conflict with other
+diff -N -u -r '--exclude=.git' a/src/s2/base/log_severity.h b/src/s2/base/log_severity.h
+--- a/src/s2/base/log_severity.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/base/log_severity.h	2024-07-26 01:37:45.940107044 -0400
+@@ -16,7 +16,7 @@
+ #ifndef S2_BASE_LOG_SEVERITY_H_
+ #define S2_BASE_LOG_SEVERITY_H_
+ 
+-#include "absl/base/log_severity.h"
++#include "shield_absl/base/log_severity.h"
+ 
+ // Stay compatible with glog.
+ namespace google {
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2cell_id_vector.cc b/src/s2/encoded_s2cell_id_vector.cc
+--- a/src/s2/encoded_s2cell_id_vector.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/encoded_s2cell_id_vector.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -21,8 +21,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/numeric/bits.h"
+-#include "absl/types/span.h"
++#include "shield_absl/numeric/bits.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/bits/bits.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_uint_vector.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2cell_id_vector.h b/src/s2/encoded_s2cell_id_vector.h
+--- a/src/s2/encoded_s2cell_id_vector.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/encoded_s2cell_id_vector.h	2024-07-26 01:37:45.968107147 -0400
+@@ -23,7 +23,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_uint_vector.h"
+ #include "s2/s2cell_id.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2point_vector.cc b/src/s2/encoded_s2point_vector.cc
+--- a/src/s2/encoded_s2point_vector.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/encoded_s2point_vector.cc	2024-07-26 01:37:45.940107044 -0400
+@@ -25,9 +25,9 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/port.h"
+-#include "absl/base/internal/unaligned_access.h"
+-#include "absl/numeric/bits.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/internal/unaligned_access.h"
++#include "shield_absl/numeric/bits.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/bits/bits.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/util/coding/varint.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2point_vector.h b/src/s2/encoded_s2point_vector.h
+--- a/src/s2/encoded_s2point_vector.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/encoded_s2point_vector.h	2024-07-26 01:37:45.976107175 -0400
+@@ -24,7 +24,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_string_vector.h"
+ #include "s2/encoded_uint_vector.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2point_vector_test.cc b/src/s2/encoded_s2point_vector_test.cc
+--- a/src/s2/encoded_s2point_vector_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/encoded_s2point_vector_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -28,8 +28,8 @@
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/log_severity.h"
+ #include "s2/util/bits/bit-interleave.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2shape_index.h b/src/s2/encoded_s2shape_index.h
+--- a/src/s2/encoded_s2shape_index.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/encoded_s2shape_index.h	2024-07-26 01:37:45.984107206 -0400
+@@ -25,7 +25,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/strings/cord.h"
++#include "shield_absl/strings/cord.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_s2cell_id_vector.h"
+ #include "s2/encoded_string_vector.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_s2shape_index_test.cc b/src/s2/encoded_s2shape_index_test.cc
+--- a/src/s2/encoded_s2shape_index_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/encoded_s2shape_index_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -26,10 +26,10 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/base/call_once.h"
+-#include "absl/flags/flag.h"
+-#include "absl/strings/escaping.h"
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/base/call_once.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/escaping.h"
++#include "shield_absl/strings/str_cat.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_string_vector.cc b/src/s2/encoded_string_vector.cc
+--- a/src/s2/encoded_string_vector.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/encoded_string_vector.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -24,8 +24,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/strings/string_view.h"
+-#include "absl/types/span.h"
++#include "shield_absl/strings/string_view.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_uint_vector.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_string_vector.h b/src/s2/encoded_string_vector.h
+--- a/src/s2/encoded_string_vector.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/encoded_string_vector.h	2024-07-26 01:37:45.968107147 -0400
+@@ -25,8 +25,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/strings/string_view.h"
+-#include "absl/types/span.h"
++#include "shield_absl/strings/string_view.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_uint_vector.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_string_vector_test.cc b/src/s2/encoded_string_vector_test.cc
+--- a/src/s2/encoded_string_vector_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/encoded_string_vector_test.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -23,7 +23,7 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/util/coding/coder.h"
+ 
+ using shield_absl::string_view;
+diff -N -u -r '--exclude=.git' a/src/s2/encoded_uint_vector.h b/src/s2/encoded_uint_vector.h
+--- a/src/s2/encoded_uint_vector.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/encoded_uint_vector.h	2024-07-26 01:37:45.944107060 -0400
+@@ -25,8 +25,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/base/internal/unaligned_access.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/internal/unaligned_access.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/util/bits/bits.h"
+ #include "s2/util/coding/coder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/mutable_s2shape_index.cc b/src/s2/mutable_s2shape_index.cc
+--- a/src/s2/mutable_s2shape_index.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/mutable_s2shape_index.cc	2024-07-26 01:37:45.940107044 -0400
+@@ -29,11 +29,11 @@
+ #include "s2/base/casts.h"
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+-#include "absl/base/attributes.h"
+-#include "absl/container/btree_map.h"
+-#include "absl/flags/flag.h"
+-#include "absl/synchronization/mutex.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/synchronization/mutex.h"
++#include "shield_absl/utility/utility.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/util/coding/varint.h"
+ #include "s2/encoded_s2cell_id_vector.h"
+diff -N -u -r '--exclude=.git' a/src/s2/mutable_s2shape_index.h b/src/s2/mutable_s2shape_index.h
+--- a/src/s2/mutable_s2shape_index.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/mutable_s2shape_index.h	2024-07-26 01:37:45.960107119 -0400
+@@ -25,10 +25,10 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/base/thread_annotations.h"
+-#include "absl/container/btree_map.h"
+-#include "absl/synchronization/mutex.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/base/thread_annotations.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/synchronization/mutex.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/commandlineflags_declare.h"
+diff -N -u -r '--exclude=.git' a/src/s2/mutable_s2shape_index_test.cc b/src/s2/mutable_s2shape_index_test.cc
+--- a/src/s2/mutable_s2shape_index_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/mutable_s2shape_index_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -30,9 +30,9 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/flag.h"
+-#include "absl/flags/reflection.h"
+-#include "absl/strings/str_format.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/flags/reflection.h"
++#include "shield_absl/strings/str_format.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/commandlineflags_declare.h"
+diff -N -u -r '--exclude=.git' a/src/s2/r1interval_test.cc b/src/s2/r1interval_test.cc
+--- a/src/s2/r1interval_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/r1interval_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -21,7 +21,7 @@
+ #include <string>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ using shield_absl::string_view;
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/r2rect_test.cc b/src/s2/r2rect_test.cc
+--- a/src/s2/r2rect_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/r2rect_test.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -23,7 +23,7 @@
+ #include <string>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/r1interval.h"
+ #include "s2/r2.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s1angle_test.cc b/src/s2/s1angle_test.cc
+--- a/src/s2/s1angle_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s1angle_test.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -22,7 +22,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s1interval_test.cc b/src/s2/s1interval_test.cc
+--- a/src/s2/s1interval_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s1interval_test.cc	2024-07-26 01:37:45.984107206 -0400
+@@ -22,7 +22,7 @@
+ #include <string>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ using shield_absl::string_view;
+ using std::fabs;
+diff -N -u -r '--exclude=.git' a/src/s2/s2boolean_operation.cc b/src/s2/s2boolean_operation.cc
+--- a/src/s2/s2boolean_operation.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2boolean_operation.cc	2024-07-26 01:37:45.940107044 -0400
+@@ -75,11 +75,11 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/cleanup/cleanup.h"
+-#include "absl/container/btree_map.h"
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/container/inlined_vector.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/cleanup/cleanup.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/container/inlined_vector.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/id_set_lexicon.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2boolean_operation_test.cc b/src/s2/s2boolean_operation_test.cc
+--- a/src/s2/s2boolean_operation_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2boolean_operation_test.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -26,12 +26,12 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/reflection.h"
+-#include "absl/flags/flag.h"
+-#include "absl/strings/match.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/str_split.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/flags/reflection.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/match.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/str_split.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/commandlineflags_declare.h"
+ #include "s2/mutable_s2shape_index.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2buffer_operation.cc b/src/s2/s2buffer_operation.cc
+--- a/src/s2/s2buffer_operation.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2buffer_operation.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -55,7 +55,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2buffer_operation_test.cc b/src/s2/s2buffer_operation_test.cc
+--- a/src/s2/s2buffer_operation_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2buffer_operation_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -31,12 +31,12 @@
+ 
+ #include "s2/base/logging.h"
+ #include <gtest/gtest.h>
+-#include "absl/base/call_once.h"
+-#include "absl/flags/flag.h"
+-#include "absl/status/status.h"
+-#include "absl/status/statusor.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/call_once.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/status/status.h"
++#include "shield_absl/status/statusor.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builder.cc b/src/s2/s2builder.cc
+--- a/src/s2/s2builder.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2builder.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -79,10 +79,10 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/cleanup/cleanup.h"
+-#include "absl/container/btree_map.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/types/span.h"
++#include "shield_absl/cleanup/cleanup.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builder_graph.cc b/src/s2/s2builder_graph.cc
+--- a/src/s2/s2builder_graph.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2builder_graph.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -25,7 +25,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/s2builder.h"
+ #include "s2/s2error.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builder.h b/src/s2/s2builder.h
+--- a/src/s2/s2builder.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2builder.h	2024-07-26 01:37:45.952107089 -0400
+@@ -27,8 +27,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/container/flat_hash_set.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/flat_hash_set.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/_fp_contract_off.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builder_test.cc b/src/s2/s2builder_test.cc
+--- a/src/s2/s2builder_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2builder_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -31,10 +31,10 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/str_join.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/str_join.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/log_severity.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_closed_set_normalizer_test.cc b/src/s2/s2builderutil_closed_set_normalizer_test.cc
+--- a/src/s2/s2builderutil_closed_set_normalizer_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2builderutil_closed_set_normalizer_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -24,7 +24,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2boolean_operation.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_find_polygon_degeneracies_test.cc b/src/s2/s2builderutil_find_polygon_degeneracies_test.cc
+--- a/src/s2/s2builderutil_find_polygon_degeneracies_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2builderutil_find_polygon_degeneracies_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -25,8 +25,8 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/flag.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/s2builder.h"
+ #include "s2/s2builder_graph.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_get_snapped_winding_delta.cc b/src/s2/s2builderutil_get_snapped_winding_delta.cc
+--- a/src/s2/s2builderutil_get_snapped_winding_delta.cc	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2builderutil_get_snapped_winding_delta.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -53,8 +53,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/btree_map.h"
+-#include "absl/types/span.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/types/span.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/s2builder.h"
+ #include "s2/s2builder_graph.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_get_snapped_winding_delta.h b/src/s2/s2builderutil_get_snapped_winding_delta.h
+--- a/src/s2/s2builderutil_get_snapped_winding_delta.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2builderutil_get_snapped_winding_delta.h	2024-07-26 01:37:45.984107206 -0400
+@@ -20,7 +20,7 @@
+ 
+ #include <functional>
+ 
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/s2builder.h"
+ #include "s2/s2builder_graph.h"
+ #include "s2/s2error.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_get_snapped_winding_delta_test.cc b/src/s2/s2builderutil_get_snapped_winding_delta_test.cc
+--- a/src/s2/s2builderutil_get_snapped_winding_delta_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2builderutil_get_snapped_winding_delta_test.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -26,9 +26,9 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/container/btree_map.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_lax_polygon_layer_test.cc b/src/s2/s2builderutil_lax_polygon_layer_test.cc
+--- a/src/s2/s2builderutil_lax_polygon_layer_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2builderutil_lax_polygon_layer_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -26,10 +26,10 @@
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+ 
+-#include "absl/base/optimization.h"
+-#include "absl/container/btree_set.h"
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/optimization.h"
++#include "shield_absl/container/btree_set.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_lax_polyline_layer_test.cc b/src/s2/s2builderutil_lax_polyline_layer_test.cc
+--- a/src/s2/s2builderutil_lax_polyline_layer_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2builderutil_lax_polyline_layer_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -24,7 +24,7 @@
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_s2point_vector_layer_test.cc b/src/s2/s2builderutil_s2point_vector_layer_test.cc
+--- a/src/s2/s2builderutil_s2point_vector_layer_test.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2builderutil_s2point_vector_layer_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -23,8 +23,8 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/memory/memory.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/memory/memory.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_s2polygon_layer.cc b/src/s2/s2builderutil_s2polygon_layer.cc
+--- a/src/s2/s2builderutil_s2polygon_layer.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2builderutil_s2polygon_layer.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -23,7 +23,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/s2builder.h"
+ #include "s2/s2builder_graph.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_s2polygon_layer.h b/src/s2/s2builderutil_s2polygon_layer.h
+--- a/src/s2/s2builderutil_s2polygon_layer.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2builderutil_s2polygon_layer.h	2024-07-26 01:37:45.948107074 -0400
+@@ -37,7 +37,7 @@
+ #include <vector>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_s2polygon_layer_test.cc b/src/s2/s2builderutil_s2polygon_layer_test.cc
+--- a/src/s2/s2builderutil_s2polygon_layer_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2builderutil_s2polygon_layer_test.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -25,9 +25,9 @@
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_s2polyline_layer_test.cc b/src/s2/s2builderutil_s2polyline_layer_test.cc
+--- a/src/s2/s2builderutil_s2polyline_layer_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2builderutil_s2polyline_layer_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -24,7 +24,7 @@
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_s2polyline_vector_layer_test.cc b/src/s2/s2builderutil_s2polyline_vector_layer_test.cc
+--- a/src/s2/s2builderutil_s2polyline_vector_layer_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2builderutil_s2polyline_vector_layer_test.cc	2024-07-26 01:37:45.984107206 -0400
+@@ -24,8 +24,8 @@
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/strings/str_join.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/str_join.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_snap_functions_test.cc b/src/s2/s2builderutil_snap_functions_test.cc
+--- a/src/s2/s2builderutil_snap_functions_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2builderutil_snap_functions_test.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -38,10 +38,10 @@
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+ #include "s2/base/log_severity.h"
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/r2.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2builder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2builderutil_testing.cc b/src/s2/s2builderutil_testing.cc
+--- a/src/s2/s2builderutil_testing.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2builderutil_testing.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -21,7 +21,7 @@
+ #include <string>
+ #include <vector>
+ 
+-#include "absl/strings/str_format.h"
++#include "shield_absl/strings/str_format.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/s2builder.h"
+ #include "s2/s2builder_graph.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cap.cc b/src/s2/s2cap.cc
+--- a/src/s2/s2cap.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2cap.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -23,7 +23,7 @@
+ #include <ostream>
+ #include <vector>
+ 
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/r1interval.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_id.cc b/src/s2/s2cell_id.cc
+--- a/src/s2/s2cell_id.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2cell_id.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -25,10 +25,10 @@
+ #include <string>
+ #include <vector>
+ 
+-#include "absl/base/call_once.h"
+-#include "absl/base/casts.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/call_once.h"
++#include "shield_absl/base/casts.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/util/bits/bits.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_id.h b/src/s2/s2cell_id.h
+--- a/src/s2/s2cell_id.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2cell_id.h	2024-07-26 01:37:45.944107060 -0400
+@@ -28,10 +28,10 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/attributes.h"
+-#include "absl/hash/hash.h"
+-#include "absl/numeric/bits.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/hash/hash.h"
++#include "shield_absl/numeric/bits.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_id_test.cc b/src/s2/s2cell_id_test.cc
+--- a/src/s2/s2cell_id_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_id_test.cc	2024-07-26 01:37:45.952107089 -0400
+@@ -28,9 +28,9 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/logging.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_index.cc b/src/s2/s2cell_index.cc
+--- a/src/s2/s2cell_index.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_index.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -20,7 +20,7 @@
+ #include <algorithm>
+ #include <vector>
+ 
+-#include "absl/container/flat_hash_set.h"
++#include "shield_absl/container/flat_hash_set.h"
+ #include "s2/s2cell_id.h"
+ #include "s2/s2cell_union.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_index.h b/src/s2/s2cell_index.h
+--- a/src/s2/s2cell_index.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_index.h	2024-07-26 01:37:45.980107191 -0400
+@@ -23,7 +23,7 @@
+ #include <ostream>
+ #include <vector>
+ 
+-#include "absl/container/flat_hash_set.h"
++#include "shield_absl/container/flat_hash_set.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_index_test.cc b/src/s2/s2cell_index_test.cc
+--- a/src/s2/s2cell_index_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_index_test.cc	2024-07-26 01:37:45.952107089 -0400
+@@ -24,10 +24,10 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2cell_id.h"
+ #include "s2/s2cell_union.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_iterator.h b/src/s2/s2cell_iterator.h
+--- a/src/s2/s2cell_iterator.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2cell_iterator.h	2024-07-26 01:37:45.968107147 -0400
+@@ -18,7 +18,7 @@
+ 
+ #include <ostream>
+ 
+-#include "absl/meta/type_traits.h"
++#include "shield_absl/meta/type_traits.h"
+ #include "s2/s2cell_id.h"
+ 
+ // Possible relationships between two S2CellIds in an index.
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_iterator_join.h b/src/s2/s2cell_iterator_join.h
+--- a/src/s2/s2cell_iterator_join.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_iterator_join.h	2024-07-26 01:37:45.952107089 -0400
+@@ -26,7 +26,7 @@
+ #include <vector>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/base/optimization.h"
++#include "shield_absl/base/optimization.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2cell.h"
+ #include "s2/s2cell_id.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_iterator_join_test.cc b/src/s2/s2cell_iterator_join_test.cc
+--- a/src/s2/s2cell_iterator_join_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_iterator_join_test.cc	2024-07-26 01:37:45.984107206 -0400
+@@ -23,8 +23,8 @@
+ 
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2cell.h"
+ #include "s2/s2cell_iterator_testing.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_iterator_testing.h b/src/s2/s2cell_iterator_testing.h
+--- a/src/s2/s2cell_iterator_testing.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2cell_iterator_testing.h	2024-07-26 01:37:45.972107161 -0400
+@@ -16,7 +16,7 @@
+ #ifndef S2_S2CELL_ITERATOR_TESTING_H_
+ #define S2_S2CELL_ITERATOR_TESTING_H_
+ 
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ #include "s2/s2cell_iterator.h"
+ 
+ // A mock iterator for testing.  Iterates an shield_absl::btree_map mapping S2CellId to
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_iterator_testing_test.cc b/src/s2/s2cell_iterator_testing_test.cc
+--- a/src/s2/s2cell_iterator_testing_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2cell_iterator_testing_test.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -19,8 +19,8 @@
+ 
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+-#include "absl/container/btree_map.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/btree_map.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s2cell_id.h"
+ 
+ namespace {
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_range_iterator.h b/src/s2/s2cell_range_iterator.h
+--- a/src/s2/s2cell_range_iterator.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_range_iterator.h	2024-07-26 01:37:45.952107089 -0400
+@@ -16,7 +16,7 @@
+ #ifndef S2_S2CELL_RANGE_ITERATOR_H_
+ #define S2_S2CELL_RANGE_ITERATOR_H_
+ 
+-#include "absl/meta/type_traits.h"
++#include "shield_absl/meta/type_traits.h"
+ #include "s2/s2cell_id.h"
+ #include "s2/s2cell_iterator.h"
+ #include "s2/s2shape_index.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_test.cc b/src/s2/s2cell_test.cc
+--- a/src/s2/s2cell_test.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2cell_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -28,11 +28,11 @@
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+ 
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/log_severity.h"
+ #include "s2/util/coding/coder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_union.cc b/src/s2/s2cell_union.cc
+--- a/src/s2/s2cell_union.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2cell_union.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -24,8 +24,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_union.h b/src/s2/s2cell_union.h
+--- a/src/s2/s2cell_union.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2cell_union.h	2024-07-26 01:37:45.940107044 -0400
+@@ -24,10 +24,10 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/algorithm/container.h"
+-#include "absl/base/macros.h"
+-#include "absl/flags/flag.h"
+-#include "absl/hash/hash.h"
++#include "shield_absl/algorithm/container.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/hash/hash.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/commandlineflags_declare.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2cell_union_test.cc b/src/s2/s2cell_union_test.cc
+--- a/src/s2/s2cell_union_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2cell_union_test.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -27,8 +27,8 @@
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+ 
+-#include "absl/hash/hash_testing.h"
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/hash/hash_testing.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/commandlineflags_declare.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2closest_cell_query_base.h b/src/s2/s2closest_cell_query_base.h
+--- a/src/s2/s2closest_cell_query_base.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2closest_cell_query_base.h	2024-07-26 01:37:45.952107089 -0400
+@@ -30,10 +30,10 @@
+ #include <vector>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/container/btree_set.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/container/inlined_vector.h"
+-#include "absl/hash/hash.h"
++#include "shield_absl/container/btree_set.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/container/inlined_vector.h"
++#include "shield_absl/hash/hash.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2cap.h"
+ #include "s2/s2cell.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2closest_cell_query_test.cc b/src/s2/s2closest_cell_query_test.cc
+--- a/src/s2/s2closest_cell_query_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2closest_cell_query_test.cc	2024-07-26 01:37:45.984107206 -0400
+@@ -28,8 +28,8 @@
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+ 
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_format.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_format.h"
+ 
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2closest_edge_query_base.h b/src/s2/s2closest_edge_query_base.h
+--- a/src/s2/s2closest_edge_query_base.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2closest_edge_query_base.h	2024-07-26 01:37:45.968107147 -0400
+@@ -29,9 +29,9 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+-#include "absl/container/btree_set.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/container/btree_set.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2closest_edge_query.h b/src/s2/s2closest_edge_query.h
+--- a/src/s2/s2closest_edge_query.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2closest_edge_query.h	2024-07-26 01:37:45.952107089 -0400
+@@ -24,8 +24,8 @@
+ #include <vector>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/base/macros.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2closest_point_query_base.h b/src/s2/s2closest_point_query_base.h
+--- a/src/s2/s2closest_point_query_base.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2closest_point_query_base.h	2024-07-26 01:37:45.944107060 -0400
+@@ -27,7 +27,7 @@
+ #include <vector>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2cap.h"
+ #include "s2/s2cell.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2coder.h b/src/s2/s2coder.h
+--- a/src/s2/s2coder.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2coder.h	2024-07-26 01:37:45.976107175 -0400
+@@ -20,7 +20,7 @@
+ #include <type_traits>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/status/status.h"
++#include "shield_absl/status/status.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/s2error.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2contains_vertex_query.h b/src/s2/s2contains_vertex_query.h
+--- a/src/s2/s2contains_vertex_query.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2contains_vertex_query.h	2024-07-26 01:37:45.940107044 -0400
+@@ -18,7 +18,7 @@
+ #ifndef S2_S2CONTAINS_VERTEX_QUERY_H_
+ #define S2_S2CONTAINS_VERTEX_QUERY_H_
+ 
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ #include "s2/s2point.h"
+ 
+ // This class determines whether a polygon contains one of its vertices given
+diff -N -u -r '--exclude=.git' a/src/s2/s2crossing_edge_query.h b/src/s2/s2crossing_edge_query.h
+--- a/src/s2/s2crossing_edge_query.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2crossing_edge_query.h	2024-07-26 01:37:45.972107161 -0400
+@@ -23,8 +23,8 @@
+ #include <type_traits>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/r2.h"
+ #include "s2/r2rect.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2crossing_edge_query_test.cc b/src/s2/s2crossing_edge_query_test.cc
+--- a/src/s2/s2crossing_edge_query_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2crossing_edge_query_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -28,7 +28,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/casts.h"
+ #include "s2/mutable_s2shape_index.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_clipping.h b/src/s2/s2edge_clipping.h
+--- a/src/s2/s2edge_clipping.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2edge_clipping.h	2024-07-26 01:37:45.952107089 -0400
+@@ -32,7 +32,7 @@
+ #include <cmath>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/r2.h"
+ #include "s2/r2rect.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_clipping_test.cc b/src/s2/s2edge_clipping_test.cc
+--- a/src/s2/s2edge_clipping_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2edge_clipping_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -24,9 +24,9 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/container/inlined_vector.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/inlined_vector.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/r1interval.h"
+ #include "s2/r2.h"
+ #include "s2/r2rect.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_crossings.cc b/src/s2/s2edge_crossings.cc
+--- a/src/s2/s2edge_crossings.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2edge_crossings.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -22,7 +22,7 @@
+ #include <limits>
+ #include <utility>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2edge_crosser.h"
+ #include "s2/s2edge_crossings_internal.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_crossings.h b/src/s2/s2edge_crossings.h
+--- a/src/s2/s2edge_crossings.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2edge_crossings.h	2024-07-26 01:37:45.976107175 -0400
+@@ -32,8 +32,8 @@
+ #include <cmath>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/base/macros.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/r2.h"
+ #include "s2/r2rect.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_crossings_internal.h b/src/s2/s2edge_crossings_internal.h
+--- a/src/s2/s2edge_crossings_internal.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2edge_crossings_internal.h	2024-07-26 01:37:45.976107175 -0400
+@@ -21,7 +21,7 @@
+ #ifndef S2_S2EDGE_CROSSINGS_INTERNAL_H_
+ #define S2_S2EDGE_CROSSINGS_INTERNAL_H_
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2point.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_crossings_test.cc b/src/s2/s2edge_crossings_test.cc
+--- a/src/s2/s2edge_crossings_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2edge_crossings_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -28,8 +28,8 @@
+ 
+ #include <gtest/gtest.h>
+ #include "s2/base/log_severity.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2edge_crossings_internal.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_distances.cc b/src/s2/s2edge_distances.cc
+--- a/src/s2/s2edge_distances.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2edge_distances.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -22,7 +22,7 @@
+ #include <cmath>
+ #include <utility>
+ 
+-#include "absl/base/optimization.h"
++#include "shield_absl/base/optimization.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2edge_crossings.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_distances.h b/src/s2/s2edge_distances.h
+--- a/src/s2/s2edge_distances.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2edge_distances.h	2024-07-26 01:37:45.976107175 -0400
+@@ -25,7 +25,7 @@
+ #include <utility>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2edge_crossings.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_distances_test.cc b/src/s2/s2edge_distances_test.cc
+--- a/src/s2/s2edge_distances_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2edge_distances_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -26,7 +26,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_tessellator_test.cc b/src/s2/s2edge_tessellator_test.cc
+--- a/src/s2/s2edge_tessellator_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2edge_tessellator_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -26,7 +26,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/log_severity.h"
+ #include "s2/r2.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2edge_vector_shape_test.cc b/src/s2/s2edge_vector_shape_test.cc
+--- a/src/s2/s2edge_vector_shape_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2edge_vector_shape_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -22,7 +22,7 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ #include "s2/s2point.h"
+ #include "s2/s2shape.h"
+ #include "s2/s2shapeutil_testing.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2error.cc b/src/s2/s2error.cc
+--- a/src/s2/s2error.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2error.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -17,10 +17,10 @@
+ 
+ #include <string>
+ 
+-#include "absl/base/optimization.h"
+-#include "absl/status/status.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/optimization.h"
++#include "shield_absl/status/status.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ using shield_absl::string_view;
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2error.h b/src/s2/s2error.h
+--- a/src/s2/s2error.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2error.h	2024-07-26 01:37:45.948107074 -0400
+@@ -25,9 +25,9 @@
+ #include <ostream>
+ #include <string>
+ 
+-#include "absl/base/attributes.h"
+-#include "absl/status/status.h"
+-#include "absl/strings/str_format.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/status/status.h"
++#include "shield_absl/strings/str_format.h"
+ 
+ #include "s2/base/port.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2error_test.cc b/src/s2/s2error_test.cc
+--- a/src/s2/s2error_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2error_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -21,7 +21,7 @@
+ 
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+-#include "absl/status/status.h"
++#include "shield_absl/status/status.h"
+ 
+ TEST(S2Error, Basic) {
+   S2Error error;
+diff -N -u -r '--exclude=.git' a/src/s2/s2furthest_edge_query.h b/src/s2/s2furthest_edge_query.h
+--- a/src/s2/s2furthest_edge_query.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2furthest_edge_query.h	2024-07-26 01:37:45.968107147 -0400
+@@ -23,8 +23,8 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+-#include "absl/base/macros.h"
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2hausdorff_distance_query.cc b/src/s2/s2hausdorff_distance_query.cc
+--- a/src/s2/s2hausdorff_distance_query.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2hausdorff_distance_query.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -15,7 +15,7 @@
+ 
+ #include "s2/s2hausdorff_distance_query.h"
+ 
+-#include "absl/types/optional.h"
++#include "shield_absl/types/optional.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2closest_edge_query.h"
+ #include "s2/s2point.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2hausdorff_distance_query.h b/src/s2/s2hausdorff_distance_query.h
+--- a/src/s2/s2hausdorff_distance_query.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2hausdorff_distance_query.h	2024-07-26 01:37:45.944107060 -0400
+@@ -19,7 +19,7 @@
+ 
+ #include <algorithm>
+ 
+-#include "absl/types/optional.h"
++#include "shield_absl/types/optional.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2min_distance_targets.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2hausdorff_distance_query_test.cc b/src/s2/s2hausdorff_distance_query_test.cc
+--- a/src/s2/s2hausdorff_distance_query_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2hausdorff_distance_query_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -21,7 +21,7 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/types/optional.h"
++#include "shield_absl/types/optional.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2latlng.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2latlng.cc b/src/s2/s2latlng.cc
+--- a/src/s2/s2latlng.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2latlng.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -23,7 +23,7 @@
+ #include <ostream>
+ #include <string>
+ 
+-#include "absl/strings/str_format.h"
++#include "shield_absl/strings/str_format.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/r2.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2latlng.h b/src/s2/s2latlng.h
+--- a/src/s2/s2latlng.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2latlng.h	2024-07-26 01:37:45.964107133 -0400
+@@ -24,7 +24,7 @@
+ #include <string>
+ #include <utility>
+ 
+-#include "absl/hash/hash.h"
++#include "shield_absl/hash/hash.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/_fp_contract_off.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2latlng_rect_bounder_test.cc b/src/s2/s2latlng_rect_bounder_test.cc
+--- a/src/s2/s2latlng_rect_bounder_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2latlng_rect_bounder_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -25,7 +25,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/r1interval.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2latlng_rect.cc b/src/s2/s2latlng_rect.cc
+--- a/src/s2/s2latlng_rect.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2latlng_rect.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -23,7 +23,7 @@
+ #include <cmath>
+ #include <ostream>
+ 
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/r1interval.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2latlng_rect_test.cc b/src/s2/s2latlng_rect_test.cc
+--- a/src/s2/s2latlng_rect_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2latlng_rect_test.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -26,7 +26,7 @@
+ #include <string>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/r1interval.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2latlng_test.cc b/src/s2/s2latlng_test.cc
+--- a/src/s2/s2latlng_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2latlng_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -23,9 +23,9 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/strings/str_cat.h"
+ 
+ #include "s2/base/logging.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_loop_shape.cc b/src/s2/s2lax_loop_shape.cc
+--- a/src/s2/s2lax_loop_shape.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2lax_loop_shape.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -22,8 +22,8 @@
+ #include <utility>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/types/span.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/types/span.h"
++#include "shield_absl/utility/utility.h"
+ #include "s2/s2loop.h"
+ #include "s2/s2point.h"
+ #include "s2/s2shape.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_loop_shape.h b/src/s2/s2lax_loop_shape.h
+--- a/src/s2/s2lax_loop_shape.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2lax_loop_shape.h	2024-07-26 01:37:45.952107089 -0400
+@@ -37,7 +37,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/s2loop.h"
+ #include "s2/s2point.h"
+ #include "s2/s2shape.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_polygon_shape.cc b/src/s2/s2lax_polygon_shape.cc
+--- a/src/s2/s2lax_polygon_shape.cc	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2lax_polygon_shape.cc	2024-07-26 01:37:45.984107206 -0400
+@@ -23,8 +23,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/types/span.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/types/span.h"
++#include "shield_absl/utility/utility.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/encoded_s2point_vector.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_polygon_shape.h b/src/s2/s2lax_polygon_shape.h
+--- a/src/s2/s2lax_polygon_shape.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2lax_polygon_shape.h	2024-07-26 01:37:45.984107206 -0400
+@@ -23,8 +23,8 @@
+ #include <memory>
+ #include <vector>
+ 
+-#include "absl/base/attributes.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_polygon_shape_test.cc b/src/s2/s2lax_polygon_shape_test.cc
+--- a/src/s2/s2lax_polygon_shape_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2lax_polygon_shape_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -28,7 +28,7 @@
+ 
+ #include "s2/base/casts.h"
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_polyline_shape.cc b/src/s2/s2lax_polyline_shape.cc
+--- a/src/s2/s2lax_polyline_shape.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2lax_polyline_shape.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -21,8 +21,8 @@
+ #include <memory>
+ #include <utility>
+ 
+-#include "absl/types/span.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/types/span.h"
++#include "shield_absl/utility/utility.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_s2point_vector.h"
+ #include "s2/s2coder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2lax_polyline_shape.h b/src/s2/s2lax_polyline_shape.h
+--- a/src/s2/s2lax_polyline_shape.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2lax_polyline_shape.h	2024-07-26 01:37:45.940107044 -0400
+@@ -23,7 +23,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/encoded_s2point_vector.h"
+ #include "s2/s2coder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2loop.cc b/src/s2/s2loop.cc
+--- a/src/s2/s2loop.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2loop.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -27,10 +27,10 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/types/span.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/types/span.h"
++#include "shield_absl/utility/utility.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2loop.h b/src/s2/s2loop.h
+--- a/src/s2/s2loop.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2loop.h	2024-07-26 01:37:45.948107074 -0400
+@@ -25,8 +25,8 @@
+ #include <memory>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2loop_measures.cc b/src/s2/s2loop_measures.cc
+--- a/src/s2/s2loop_measures.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2loop_measures.cc	2024-07-26 01:37:45.940107044 -0400
+@@ -24,7 +24,7 @@
+ #include <ostream>
+ #include <vector>
+ 
+-#include "absl/container/inlined_vector.h"
++#include "shield_absl/container/inlined_vector.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2centroids.h"
+ #include "s2/s2measures.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2loop_measures_test.cc b/src/s2/s2loop_measures_test.cc
+--- a/src/s2/s2loop_measures_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2loop_measures_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -26,8 +26,8 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2debug.h"
+ #include "s2/s2latlng.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2loop_test.cc b/src/s2/s2loop_test.cc
+--- a/src/s2/s2loop_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2loop_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -28,11 +28,11 @@
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+ 
+-#include "absl/container/fixed_array.h"
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/commandlineflags_declare.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2max_distance_targets_test.cc b/src/s2/s2max_distance_targets_test.cc
+--- a/src/s2/s2max_distance_targets_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2max_distance_targets_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -21,7 +21,7 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/container/btree_set.h"
++#include "shield_absl/container/btree_set.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2cap.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2memory_tracker.h b/src/s2/s2memory_tracker.h
+--- a/src/s2/s2memory_tracker.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2memory_tracker.h	2024-07-26 01:37:45.968107147 -0400
+@@ -24,7 +24,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/strings/str_format.h"
++#include "shield_absl/strings/str_format.h"
+ #include "s2/s2error.h"
+ #include "s2/util/gtl/compact_array.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2min_distance_targets_test.cc b/src/s2/s2min_distance_targets_test.cc
+--- a/src/s2/s2min_distance_targets_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2min_distance_targets_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -24,7 +24,7 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/container/btree_set.h"
++#include "shield_absl/container/btree_set.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2cell.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_compression.cc b/src/s2/s2point_compression.cc
+--- a/src/s2/s2point_compression.cc	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2point_compression.cc	2024-07-26 01:37:45.952107089 -0400
+@@ -20,9 +20,9 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/casts.h"
+-#include "absl/container/fixed_array.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/casts.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_compression.h b/src/s2/s2point_compression.h
+--- a/src/s2/s2point_compression.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2point_compression.h	2024-07-26 01:37:45.972107161 -0400
+@@ -46,7 +46,7 @@
+ #ifndef S2_S2POINT_COMPRESSION_H_
+ #define S2_S2POINT_COMPRESSION_H_
+ 
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_compression_test.cc b/src/s2/s2point_compression_test.cc
+--- a/src/s2/s2point_compression_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2point_compression_test.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -21,8 +21,8 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/container/fixed_array.h"
+-#include "absl/types/span.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point.h b/src/s2/s2point.h
+--- a/src/s2/s2point.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2point.h	2024-07-26 01:37:45.956107103 -0400
+@@ -20,8 +20,8 @@
+ 
+ #include <utility>
+ 
+-#include "absl/base/attributes.h"
+-#include "absl/hash/hash.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/hash/hash.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s2coder.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_index.h b/src/s2/s2point_index.h
+--- a/src/s2/s2point_index.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2point_index.h	2024-07-26 01:37:45.972107161 -0400
+@@ -24,7 +24,7 @@
+ #include <type_traits>
+ #include <utility>
+ 
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ 
+ #include "s2/s2cell_id.h"
+ #include "s2/s2cell_iterator.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_region.h b/src/s2/s2point_region.h
+--- a/src/s2/s2point_region.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2point_region.h	2024-07-26 01:37:45.960107119 -0400
+@@ -18,7 +18,7 @@
+ #ifndef S2_S2POINT_REGION_H_
+ #define S2_S2POINT_REGION_H_
+ 
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ 
+ #include "s2/base/logging.h"
+ #include "s2/_fp_contract_off.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_span.h b/src/s2/s2point_span.h
+--- a/src/s2/s2point_span.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2point_span.h	2024-07-26 01:37:45.944107060 -0400
+@@ -21,7 +21,7 @@
+ #include <vector>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/s2point.h"
+ 
+ // S2PointSpan represents a view of an S2Point array.  It is used to pass
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_test.cc b/src/s2/s2point_test.cc
+--- a/src/s2/s2point_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2point_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -22,9 +22,9 @@
+ 
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/hash/hash.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/hash/hash.h"
+ #include "s2/s2coder_testing.h"
+ #include "s2/s2error.h"
+ #include "s2/s2testing.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2point_vector_shape_test.cc b/src/s2/s2point_vector_shape_test.cc
+--- a/src/s2/s2point_vector_shape_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2point_vector_shape_test.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -22,7 +22,7 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ #include "s2/s2point.h"
+ #include "s2/s2shape.h"
+ #include "s2/s2shapeutil_testing.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polygon.cc b/src/s2/s2polygon.cc
+--- a/src/s2/s2polygon.cc	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2polygon.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -29,10 +29,10 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/fixed_array.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/utility/utility.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polygon.h b/src/s2/s2polygon.h
+--- a/src/s2/s2polygon.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2polygon.h	2024-07-26 01:37:45.956107103 -0400
+@@ -25,8 +25,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/attributes.h"
+-#include "absl/container/flat_hash_map.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/container/flat_hash_map.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polygon_test.cc b/src/s2/s2polygon_test.cc
+--- a/src/s2/s2polygon_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2polygon_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -30,12 +30,12 @@
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+ 
+-#include "absl/container/fixed_array.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/flags/reflection.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/flags/reflection.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/casts.h"
+ #include "s2/base/commandlineflags.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polyline_alignment_test.cc b/src/s2/s2polyline_alignment_test.cc
+--- a/src/s2/s2polyline_alignment_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2polyline_alignment_test.cc	2024-07-26 01:37:45.952107089 -0400
+@@ -26,7 +26,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/str_format.h"
++#include "shield_absl/strings/str_format.h"
+ 
+ #include "s2/s1angle.h"
+ #include "s2/s2cap.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polyline.cc b/src/s2/s2polyline.cc
+--- a/src/s2/s2polyline.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2polyline.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -26,11 +26,11 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/fixed_array.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
+-#include "absl/types/span.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/types/span.h"
++#include "shield_absl/utility/utility.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polyline.h b/src/s2/s2polyline.h
+--- a/src/s2/s2polyline.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2polyline.h	2024-07-26 01:37:45.940107044 -0400
+@@ -25,8 +25,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/base/logging.h"
+ #include "s2/_fp_contract_off.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polyline_measures.cc b/src/s2/s2polyline_measures.cc
+--- a/src/s2/s2polyline_measures.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2polyline_measures.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -17,7 +17,7 @@
+ 
+ #include "s2/s2polyline_measures.h"
+ 
+-#include "absl/types/span.h"
++#include "shield_absl/types/span.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2centroids.h"
+ #include "s2/s2point.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polyline_simplifier_test.cc b/src/s2/s2polyline_simplifier_test.cc
+--- a/src/s2/s2polyline_simplifier_test.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2polyline_simplifier_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -22,7 +22,7 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2edge_crossings.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2polyline_test.cc b/src/s2/s2polyline_test.cc
+--- a/src/s2/s2polyline_test.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2polyline_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -25,8 +25,8 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/s1angle.h"
+ #include "s2/s2builderutil_snap_functions.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2predicates.h b/src/s2/s2predicates.h
+--- a/src/s2/s2predicates.h	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2predicates.h	2024-07-26 01:37:45.940107044 -0400
+@@ -52,7 +52,7 @@
+ #include <iosfwd>
+ #include <ostream>
+ 
+-#include "absl/flags/flag.h"
++#include "shield_absl/flags/flag.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2debug.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2predicates_internal.h b/src/s2/s2predicates_internal.h
+--- a/src/s2/s2predicates_internal.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2predicates_internal.h	2024-07-26 01:37:45.952107089 -0400
+@@ -23,7 +23,7 @@
+ 
+ #include <limits>
+ 
+-#include "absl/base/casts.h"
++#include "shield_absl/base/casts.h"
+ #include "s2/s1chord_angle.h"
+ #include "s2/s2point.h"
+ #include "s2/s2predicates.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2predicates_test.cc b/src/s2/s2predicates_test.cc
+--- a/src/s2/s2predicates_test.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/s2predicates_test.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -29,10 +29,10 @@
+ #include <gmock/gmock.h>
+ #include <gtest/gtest.h>
+ 
+-#include "absl/base/casts.h"
+-#include "absl/flags/flag.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/casts.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2r2rect_test.cc b/src/s2/s2r2rect_test.cc
+--- a/src/s2/s2r2rect_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2r2rect_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -24,8 +24,8 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/r1interval.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_coverer.cc b/src/s2/s2region_coverer.cc
+--- a/src/s2/s2region_coverer.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2region_coverer.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -21,7 +21,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/flat_hash_set.h"
++#include "shield_absl/container/flat_hash_set.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_coverer.h b/src/s2/s2region_coverer.h
+--- a/src/s2/s2region_coverer.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2region_coverer.h	2024-07-26 01:37:45.976107175 -0400
+@@ -25,8 +25,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/casts.h"
+-#include "absl/base/macros.h"
++#include "shield_absl/base/casts.h"
++#include "shield_absl/base/macros.h"
+ #include "s2/_fp_contract_off.h"
+ #include "s2/s2cell.h"
+ #include "s2/s2cell_id.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_coverer_test.cc b/src/s2/s2region_coverer_test.cc
+--- a/src/s2/s2region_coverer_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2region_coverer_test.cc	2024-07-26 01:37:45.944107060 -0400
+@@ -30,10 +30,10 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/strings/numbers.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/str_split.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/strings/numbers.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/str_split.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_intersection.h b/src/s2/s2region_intersection.h
+--- a/src/s2/s2region_intersection.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2region_intersection.h	2024-07-26 01:37:45.948107074 -0400
+@@ -20,7 +20,7 @@
+ #include <memory>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ 
+ #include "s2/base/logging.h"
+ #include "s2/_fp_contract_off.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_term_indexer.cc b/src/s2/s2region_term_indexer.cc
+--- a/src/s2/s2region_term_indexer.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2region_term_indexer.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -77,9 +77,9 @@
+ #include <string>
+ #include <vector>
+ 
+-#include "absl/strings/ascii.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/ascii.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/log_severity.h"
+ #include "s2/s2cell_id.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_term_indexer.h b/src/s2/s2region_term_indexer.h
+--- a/src/s2/s2region_term_indexer.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2region_term_indexer.h	2024-07-26 01:37:45.956107103 -0400
+@@ -100,7 +100,7 @@
+ #include <string>
+ #include <vector>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/s2cell_id.h"
+ #include "s2/s2cell_union.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_term_indexer_test.cc b/src/s2/s2region_term_indexer_test.cc
+--- a/src/s2/s2region_term_indexer_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2region_term_indexer_test.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -24,9 +24,9 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/container/flat_hash_map.h"
+-#include "absl/container/flat_hash_set.h"
+-#include "absl/flags/flag.h"
++#include "shield_absl/container/flat_hash_map.h"
++#include "shield_absl/container/flat_hash_set.h"
++#include "shield_absl/flags/flag.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_test.cc b/src/s2/s2region_test.cc
+--- a/src/s2/s2region_test.cc	2024-07-26 01:37:08.055968470 -0400
++++ b/src/s2/s2region_test.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -24,7 +24,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/s2cap.h"
+ #include "s2/s2cell.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2region_union.h b/src/s2/s2region_union.h
+--- a/src/s2/s2region_union.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2region_union.h	2024-07-26 01:37:45.976107175 -0400
+@@ -21,7 +21,7 @@
+ #include <memory>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ 
+ #include "s2/base/logging.h"
+ #include "s2/_fp_contract_off.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_index_buffered_region_test.cc b/src/s2/s2shape_index_buffered_region_test.cc
+--- a/src/s2/s2shape_index_buffered_region_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2shape_index_buffered_region_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -23,7 +23,7 @@
+ #include <string>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+ #include "s2/s1chord_angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_index.h b/src/s2/s2shape_index.h
+--- a/src/s2/s2shape_index.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2shape_index.h	2024-07-26 01:37:45.948107074 -0400
+@@ -49,9 +49,9 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/base/thread_annotations.h"
+-#include "absl/synchronization/mutex.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/base/thread_annotations.h"
++#include "shield_absl/synchronization/mutex.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_index_region.h b/src/s2/s2shape_index_region.h
+--- a/src/s2/s2shape_index_region.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2shape_index_region.h	2024-07-26 01:37:45.976107175 -0400
+@@ -21,8 +21,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/optimization.h"
+-#include "absl/container/flat_hash_map.h"
++#include "shield_absl/base/optimization.h"
++#include "shield_absl/container/flat_hash_map.h"
+ #include "s2/r2.h"
+ #include "s2/r2rect.h"
+ #include "s2/s2cap.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_index_region_test.cc b/src/s2/s2shape_index_region_test.cc
+--- a/src/s2/s2shape_index_region_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2shape_index_region_test.cc	2024-07-26 01:37:45.972107161 -0400
+@@ -23,7 +23,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/r2rect.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_nesting_query.cc b/src/s2/s2shape_nesting_query.cc
+--- a/src/s2/s2shape_nesting_query.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2shape_nesting_query.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -21,8 +21,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/container/fixed_array.h"
+-#include "absl/strings/str_format.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/strings/str_format.h"
+ #include "s2/util/bitmap/bitmap.h"
+ #include "s2/s2crossing_edge_query.h"
+ #include "s2/s2point.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_nesting_query.h b/src/s2/s2shape_nesting_query.h
+--- a/src/s2/s2shape_nesting_query.h	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2shape_nesting_query.h	2024-07-26 01:37:45.956107103 -0400
+@@ -21,8 +21,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/container/inlined_vector.h"
+-#include "absl/types/span.h"
++#include "shield_absl/container/inlined_vector.h"
++#include "shield_absl/types/span.h"
+ #include "s2/s2shape.h"
+ #include "s2/s2shape_index.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2shape_nesting_query_test.cc b/src/s2/s2shape_nesting_query_test.cc
+--- a/src/s2/s2shape_nesting_query_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2shape_nesting_query_test.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -25,8 +25,8 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include <gtest/gtest.h>
+-#include "absl/flags/flag.h"
+-#include "absl/types/span.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/types/span.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2latlng.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shapeutil_build_polygon_boundaries.cc b/src/s2/s2shapeutil_build_polygon_boundaries.cc
+--- a/src/s2/s2shapeutil_build_polygon_boundaries.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2shapeutil_build_polygon_boundaries.cc	2024-07-26 01:37:45.984107206 -0400
+@@ -21,7 +21,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/container/btree_map.h"
++#include "shield_absl/container/btree_map.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2contains_point_query.h"
+ #include "s2/s2pointutil.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shapeutil_build_polygon_boundaries_test.cc b/src/s2/s2shapeutil_build_polygon_boundaries_test.cc
+--- a/src/s2/s2shapeutil_build_polygon_boundaries_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2shapeutil_build_polygon_boundaries_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -22,7 +22,7 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/s2lax_loop_shape.h"
+ #include "s2/s2point.h"
+ #include "s2/s2shape.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shapeutil_coding_test.cc b/src/s2/s2shapeutil_coding_test.cc
+--- a/src/s2/s2shapeutil_coding_test.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2shapeutil_coding_test.cc	2024-07-26 01:37:45.968107147 -0400
+@@ -23,7 +23,7 @@
+ 
+ #include "s2/base/casts.h"
+ #include <gtest/gtest.h>
+-#include "absl/strings/escaping.h"
++#include "shield_absl/strings/escaping.h"
+ #include "s2/util/coding/coder.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2lax_polygon_shape.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shapeutil_edge_iterator.cc b/src/s2/s2shapeutil_edge_iterator.cc
+--- a/src/s2/s2shapeutil_edge_iterator.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2shapeutil_edge_iterator.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -17,7 +17,7 @@
+ 
+ #include <string>
+ 
+-#include "absl/strings/str_cat.h"
++#include "shield_absl/strings/str_cat.h"
+ #include "s2/s2shape.h"
+ #include "s2/s2shape_index.h"
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc b/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc
+--- a/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -21,8 +21,8 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/container/inlined_vector.h"
+-#include "absl/strings/str_format.h"
++#include "shield_absl/container/inlined_vector.h"
++#include "shield_absl/strings/str_format.h"
+ #include "s2/s2cell_id.h"
+ #include "s2/s2cell_range_iterator.h"
+ #include "s2/s2crossing_edge_query.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2shapeutil_visit_crossing_edge_pairs_test.cc b/src/s2/s2shapeutil_visit_crossing_edge_pairs_test.cc
+--- a/src/s2/s2shapeutil_visit_crossing_edge_pairs_test.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2shapeutil_visit_crossing_edge_pairs_test.cc	2024-07-26 01:37:45.948107074 -0400
+@@ -27,7 +27,7 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2crossing_edge_query.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2testing.cc b/src/s2/s2testing.cc
+--- a/src/s2/s2testing.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2testing.cc	2024-07-26 01:37:45.956107103 -0400
+@@ -28,7 +28,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2testing.h b/src/s2/s2testing.h
+--- a/src/s2/s2testing.h	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2testing.h	2024-07-26 01:37:45.956107103 -0400
+@@ -25,8 +25,8 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/commandlineflags.h"
+ #include "s2/base/commandlineflags_declare.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2text_format.cc b/src/s2/s2text_format.cc
+--- a/src/s2/s2text_format.cc	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2text_format.cc	2024-07-26 01:37:45.952107089 -0400
+@@ -20,13 +20,13 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "absl/strings/ascii.h"
+-#include "absl/strings/numbers.h"
+-#include "absl/strings/str_cat.h"
+-#include "absl/strings/str_format.h"
+-#include "absl/strings/str_split.h"
+-#include "absl/strings/string_view.h"
+-#include "absl/types/span.h"
++#include "shield_absl/strings/ascii.h"
++#include "shield_absl/strings/numbers.h"
++#include "shield_absl/strings/str_cat.h"
++#include "shield_absl/strings/str_format.h"
++#include "shield_absl/strings/str_split.h"
++#include "shield_absl/strings/string_view.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2text_format.h b/src/s2/s2text_format.h
+--- a/src/s2/s2text_format.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/s2text_format.h	2024-07-26 01:37:45.968107147 -0400
+@@ -27,9 +27,9 @@
+ #include <string>
+ #include <vector>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/strings/string_view.h"
+-#include "absl/types/span.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/strings/string_view.h"
++#include "shield_absl/types/span.h"
+ 
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s2cell_id.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2text_format_test.cc b/src/s2/s2text_format_test.cc
+--- a/src/s2/s2text_format_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2text_format_test.cc	2024-07-26 01:37:45.976107175 -0400
+@@ -23,9 +23,9 @@
+ 
+ #include <gtest/gtest.h>
+ 
+-#include "absl/strings/match.h"
+-#include "absl/strings/str_split.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/strings/match.h"
++#include "shield_absl/strings/str_split.h"
++#include "shield_absl/strings/string_view.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/mutable_s2shape_index.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2winding_operation.cc b/src/s2/s2winding_operation.cc
+--- a/src/s2/s2winding_operation.cc	2024-07-26 01:37:08.067968515 -0400
++++ b/src/s2/s2winding_operation.cc	2024-07-26 01:37:45.964107133 -0400
+@@ -23,7 +23,7 @@
+ #include <vector>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/base/optimization.h"
++#include "shield_absl/base/optimization.h"
+ #include "s2/id_set_lexicon.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+diff -N -u -r '--exclude=.git' a/src/s2/s2winding_operation_test.cc b/src/s2/s2winding_operation_test.cc
+--- a/src/s2/s2winding_operation_test.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/s2winding_operation_test.cc	2024-07-26 01:37:45.940107044 -0400
+@@ -24,8 +24,8 @@
+ #include <vector>
+ 
+ #include <gtest/gtest.h>
+-#include "absl/flags/flag.h"
+-#include "absl/strings/string_view.h"
++#include "shield_absl/flags/flag.h"
++#include "shield_absl/strings/string_view.h"
+ #include "s2/mutable_s2shape_index.h"
+ #include "s2/s1angle.h"
+ #include "s2/s2boolean_operation.h"
+diff -N -u -r '--exclude=.git' a/src/s2/thread_testing.cc b/src/s2/thread_testing.cc
+--- a/src/s2/thread_testing.cc	2024-07-26 01:37:08.059968485 -0400
++++ b/src/s2/thread_testing.cc	2024-07-26 01:37:45.980107191 -0400
+@@ -22,7 +22,7 @@
+ #include <thread>
+ 
+ #include "s2/base/logging.h"
+-#include "absl/synchronization/mutex.h"
++#include "shield_absl/synchronization/mutex.h"
+ 
+ using std::make_unique;
+ using std::unique_ptr;
+diff -N -u -r '--exclude=.git' a/src/s2/thread_testing.h b/src/s2/thread_testing.h
+--- a/src/s2/thread_testing.h	2024-07-26 01:37:08.063968501 -0400
++++ b/src/s2/thread_testing.h	2024-07-26 01:37:45.952107089 -0400
+@@ -18,7 +18,7 @@
+ #ifndef S2_THREAD_TESTING_H_
+ #define S2_THREAD_TESTING_H_
+ 
+-#include "absl/synchronization/mutex.h"
++#include "shield_absl/synchronization/mutex.h"
+ 
+ namespace s2testing {
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/util/bitmap/bitmap.h b/src/s2/util/bitmap/bitmap.h
+--- a/src/s2/util/bitmap/bitmap.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/bitmap/bitmap.h	2024-07-26 01:37:45.964107133 -0400
+@@ -32,10 +32,10 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+-#include "absl/base/macros.h"
+-#include "absl/base/attributes.h"
+-#include "absl/base/macros.h"
+-#include "absl/hash/hash.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/hash/hash.h"
+ #include "s2/util/bits/bits.h"
+ 
+ namespace util {
+diff -N -u -r '--exclude=.git' a/src/s2/util/bits/bits.h b/src/s2/util/bits/bits.h
+--- a/src/s2/util/bits/bits.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/bits/bits.h	2024-07-26 01:37:45.960107119 -0400
+@@ -17,8 +17,8 @@
+ #define S2_UTIL_BITS_BITS_H_
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/base/optimization.h"
+-#include "absl/numeric/bits.h"
++#include "shield_absl/base/optimization.h"
++#include "shield_absl/numeric/bits.h"
+ 
+ // abseil only exposed ABSL_ASSUME in abseil/abseil-cpp@231c393 on 2022-03-16.
+ // This is not in an LTS as of 2022-04.  Use either ABSL_ASSUME or
+diff -N -u -r '--exclude=.git' a/src/s2/util/coding/coder.cc b/src/s2/util/coding/coder.cc
+--- a/src/s2/util/coding/coder.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/coding/coder.cc	2024-07-26 01:37:45.960107119 -0400
+@@ -25,7 +25,7 @@
+ #include <tuple>
+ #include <utility>
+ 
+-#include "absl/utility/utility.h"
++#include "shield_absl/utility/utility.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/util/coding/coder.h b/src/s2/util/coding/coder.h
+--- a/src/s2/util/coding/coder.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/coding/coder.h	2024-07-26 01:37:45.960107119 -0400
+@@ -27,11 +27,11 @@
+ #include <utility>
+ 
+ // Avoid adding expensive includes here.
+-#include "absl/base/attributes.h"
+-#include "absl/base/macros.h"
+-#include "absl/meta/type_traits.h"
+-#include "absl/numeric/int128.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/base/attributes.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/meta/type_traits.h"
++#include "shield_absl/numeric/int128.h"
++#include "shield_absl/utility/utility.h"
+ 
+ #include "s2/base/casts.h"
+ #include "s2/base/integral_types.h"
+diff -N -u -r '--exclude=.git' a/src/s2/util/coding/varint.h b/src/s2/util/coding/varint.h
+--- a/src/s2/util/coding/varint.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/coding/varint.h	2024-07-26 01:37:45.960107119 -0400
+@@ -40,7 +40,7 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/port.h"
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ #include "s2/util/bits/bits.h"
+ 
+ // Just a namespace, not a real class
+diff -N -u -r '--exclude=.git' a/src/s2/util/endian/endian.h b/src/s2/util/endian/endian.h
+--- a/src/s2/util/endian/endian.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/endian/endian.h	2024-07-26 01:37:45.960107119 -0400
+@@ -32,12 +32,12 @@
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+ #include "s2/base/port.h"
+-#include "absl/base/casts.h"
+-#include "absl/base/config.h"
+-#include "absl/base/internal/endian.h"
+-#include "absl/base/optimization.h"
+-#include "absl/base/port.h"
+-#include "absl/numeric/int128.h"
++#include "shield_absl/base/casts.h"
++#include "shield_absl/base/config.h"
++#include "shield_absl/base/internal/endian.h"
++#include "shield_absl/base/optimization.h"
++#include "shield_absl/base/port.h"
++#include "shield_absl/numeric/int128.h"
+ 
+ inline uint64 gbswap_64(uint64 host_int) {
+   return shield_absl::gbswap_64(host_int);
+diff -N -u -r '--exclude=.git' a/src/s2/util/gtl/compact_array.h b/src/s2/util/gtl/compact_array.h
+--- a/src/s2/util/gtl/compact_array.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/gtl/compact_array.h	2024-07-26 01:37:45.960107119 -0400
+@@ -50,8 +50,8 @@
+ #include <type_traits>
+ #include <utility>
+ 
+-#include "absl/base/macros.h"
+-#include "absl/meta/type_traits.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/meta/type_traits.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/util/gtl/dense_hash_set.h b/src/s2/util/gtl/dense_hash_set.h
+--- a/src/s2/util/gtl/dense_hash_set.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/gtl/dense_hash_set.h	2024-07-26 01:37:45.960107119 -0400
+@@ -125,7 +125,7 @@
+ #include <vector>
+ 
+ #include "s2/base/port.h"
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ #include "s2/util/gtl/densehashtable.h"  // IWYU pragma: export
+ 
+ // Some files test for this symbol.
+diff -N -u -r '--exclude=.git' a/src/s2/util/gtl/legacy_random_shuffle.h b/src/s2/util/gtl/legacy_random_shuffle.h
+--- a/src/s2/util/gtl/legacy_random_shuffle.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/gtl/legacy_random_shuffle.h	2024-07-26 01:37:45.960107119 -0400
+@@ -34,7 +34,7 @@
+ #include <cstdlib>
+ #include <iterator>
+ 
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ 
+ namespace gtl {
+ 
+diff -N -u -r '--exclude=.git' a/src/s2/util/math/exactfloat/exactfloat.cc b/src/s2/util/math/exactfloat/exactfloat.cc
+--- a/src/s2/util/math/exactfloat/exactfloat.cc	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/math/exactfloat/exactfloat.cc	2024-07-26 01:37:45.960107119 -0400
+@@ -30,9 +30,9 @@
+ #include <openssl/bn.h>
+ #include <openssl/crypto.h>  // for OPENSSL_free
+ 
+-#include "absl/base/macros.h"
+-#include "absl/container/fixed_array.h"
+-#include "absl/numeric/int128.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/container/fixed_array.h"
++#include "shield_absl/numeric/int128.h"
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+diff -N -u -r '--exclude=.git' a/src/s2/util/math/vector.h b/src/s2/util/math/vector.h
+--- a/src/s2/util/math/vector.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/math/vector.h	2024-07-26 01:37:45.960107119 -0400
+@@ -33,8 +33,8 @@
+ 
+ #include "s2/base/integral_types.h"
+ #include "s2/base/logging.h"
+-#include "absl/base/macros.h"
+-#include "absl/utility/utility.h"
++#include "shield_absl/base/macros.h"
++#include "shield_absl/utility/utility.h"
+ 
+ template <typename T>
+ class Vector2;
+diff -N -u -r '--exclude=.git' a/src/s2/util/units/physical-units.h b/src/s2/util/units/physical-units.h
+--- a/src/s2/util/units/physical-units.h	2024-07-26 01:37:08.071968529 -0400
++++ b/src/s2/util/units/physical-units.h	2024-07-26 01:37:45.960107119 -0400
+@@ -94,7 +94,7 @@
+ #include <type_traits>
+ 
+ #include "s2/base/integral_types.h"
+-#include "absl/base/macros.h"
++#include "shield_absl/base/macros.h"
+ 
+ namespace util {
+ 

@@ -1,0 +1,104 @@
+diff --git a/CMake/AbseilHelpers.cmake b/CMake/AbseilHelpers.cmake
+index 8b2925c5..25d03ae0 100644
+--- a/CMake/AbseilHelpers.cmake
++++ b/CMake/AbseilHelpers.cmake
+@@ -137,6 +137,52 @@ function(absl_cc_library)
+     set(_build_type "static")
+   endif()
+ 
++  # Generate a pkg-config file for every library:
++  if((_build_type STREQUAL "static" OR _build_type STREQUAL "shared")
++     AND ABSL_ENABLE_INSTALL)
++    if(NOT ABSL_CC_LIB_TESTONLY)
++      if(absl_VERSION)
++        set(PC_VERSION "${absl_VERSION}")
++      else()
++        set(PC_VERSION "head")
++      endif()
++      foreach(dep ${ABSL_CC_LIB_DEPS})
++        if(${dep} MATCHES "^absl::(.*)")
++	  # Join deps with commas.
++          if(PC_DEPS)
++            set(PC_DEPS "${PC_DEPS},")
++          endif()
++          set(PC_DEPS "${PC_DEPS} absl_${CMAKE_MATCH_1} = ${PC_VERSION}")
++        endif()
++      endforeach()
++      foreach(cflag ${ABSL_CC_LIB_COPTS})
++        if(${cflag} MATCHES "^(-Wno|/wd)")
++          # These flags are needed to suppress warnings that might fire in our headers.
++          set(PC_CFLAGS "${PC_CFLAGS} ${cflag}")
++        elseif(${cflag} MATCHES "^(-W|/w[1234eo])")
++          # Don't impose our warnings on others.
++        else()
++          set(PC_CFLAGS "${PC_CFLAGS} ${cflag}")
++        endif()
++      endforeach()
++      FILE(GENERATE OUTPUT "${CMAKE_BINARY_DIR}/lib/pkgconfig/absl_${_NAME}.pc" CONTENT "\
++prefix=${CMAKE_INSTALL_PREFIX}\n\
++exec_prefix=\${prefix}\n\
++libdir=\${prefix}/${CMAKE_INSTALL_LIBDIR}\n\
++includedir=\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}\n\
++\n\
++Name: absl_${_NAME}\n\
++Description: Abseil ${_NAME} library\n\
++URL: https://abseil.io/\n\
++Version: ${PC_VERSION}\n\
++Requires:${PC_DEPS}\n\
++Libs: -L\${libdir} $<JOIN:${ABSL_CC_LIB_LINKOPTS}, > $<$<NOT:$<BOOL:${ABSL_CC_LIB_IS_INTERFACE}>>:-labsl_${_NAME}>\n\
++Cflags: -I\${includedir}${PC_CFLAGS}\n")
++      INSTALL(FILES "${CMAKE_BINARY_DIR}/lib/pkgconfig/absl_${_NAME}.pc"
++              DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
++    endif()
++  endif()
++
+   if(NOT ABSL_CC_LIB_IS_INTERFACE)
+     if(${_build_type} STREQUAL "dll_dep")
+       # This target depends on the DLL. When adding dependencies to this target,
+diff --git a/absl/debugging/failure_signal_handler.cc b/absl/debugging/failure_signal_handler.cc
+index 5d13bdbb..2ed137b5 100644
+--- a/absl/debugging/failure_signal_handler.cc
++++ b/absl/debugging/failure_signal_handler.cc
+@@ -135,7 +135,8 @@ static bool SetupAlternateStackOnce() {
+ #else
+   const size_t page_mask = sysconf(_SC_PAGESIZE) - 1;
+ #endif
+-  size_t stack_size = (std::max(SIGSTKSZ, 65536) + page_mask) & ~page_mask;
++  size_t stack_size =
++      (std::max<size_t>(SIGSTKSZ, 65536) + page_mask) & ~page_mask;
+ #if defined(ABSL_HAVE_ADDRESS_SANITIZER) || \
+     defined(ABSL_HAVE_MEMORY_SANITIZER) || defined(ABSL_HAVE_THREAD_SANITIZER)
+   // Account for sanitizer instrumentation requiring additional stack space.
+diff --git a/absl/strings/internal/str_format/arg.h b/absl/strings/internal/str_format/arg.h
+index 3dbc1526..f9d89d12 100644
+--- a/absl/strings/internal/str_format/arg.h
++++ b/absl/strings/internal/str_format/arg.h
+@@ -108,6 +108,14 @@ StringConvertResult FormatConvertImpl(const std::string& v,
+ StringConvertResult FormatConvertImpl(string_view v,
+                                       FormatConversionSpecImpl conv,
+                                       FormatSinkImpl* sink);
++#if defined(ABSL_HAVE_STD_STRING_VIEW) && !defined(ABSL_USES_STD_STRING_VIEW)
++inline StringConvertResult FormatConvertImpl(std::string_view v,
++                                             FormatConversionSpecImpl conv,
++                                             FormatSinkImpl* sink) {
++  return FormatConvertImpl(absl::string_view(v.data(), v.size()), conv, sink);
++}
++#endif  // ABSL_HAVE_STD_STRING_VIEW && !ABSL_USES_STD_STRING_VIEW
++
+ ArgConvertResult<FormatConversionCharSetUnion(
+     FormatConversionCharSetInternal::s, FormatConversionCharSetInternal::p)>
+ FormatConvertImpl(const char* v, const FormatConversionSpecImpl conv,
+diff --git a/absl/strings/internal/str_format/convert_test.cc b/absl/strings/internal/str_format/convert_test.cc
+index 634ee78b..cc789530 100644
+--- a/absl/strings/internal/str_format/convert_test.cc
++++ b/absl/strings/internal/str_format/convert_test.cc
+@@ -215,6 +215,9 @@ TEST_F(FormatConvertTest, BasicString) {
+   TestStringConvert(static_cast<const char*>("hello"));
+   TestStringConvert(std::string("hello"));
+   TestStringConvert(string_view("hello"));
++#if defined(ABSL_HAVE_STD_STRING_VIEW)
++  TestStringConvert(std::string_view("hello"));
++#endif  // ABSL_HAVE_STD_STRING_VIEW
+ }
+ 
+ TEST_F(FormatConvertTest, NullString) {

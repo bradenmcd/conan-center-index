@@ -83,7 +83,7 @@ class ApriltagConan(ConanFile):
         self.cpp_info.set_property("cmake_file_name", "apriltag")
         self.cpp_info.set_property("cmake_target_name", "apriltag::apriltag")
         self.cpp_info.set_property("pkg_config_name", "apriltag")
-        self.cpp_info.libs = ["apriltag"]
+        self.cpp_info.libs = ["apriltag"] if self.settings.build_type == 'Release' else ["apriltagd"]
         self.cpp_info.includedirs.append(os.path.join("include", "apriltag"))
         if self.settings.os in ["Linux", "FreeBSD"]:
             self.cpp_info.system_libs = ["m", "pthread"]

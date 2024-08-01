@@ -1,0 +1,4 @@
+sources:
+  "8.2":
+    url: "https://devops.shield.ai/ShieldAI/ThirdParty/_git/or-tools"
+    tag: "v8.2"

@@ -1,0 +1,4 @@
+sources:
+  "0.16":
+    url: "https://github.com/schwehr/libais/archive/refs/heads/master.zip"
+    sha256: "0d8dede62c67c878d6c90e9814b9dea3833832ad81ab334cbb55f0dd3d0502fc"

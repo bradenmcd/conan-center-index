@@ -1,0 +1,4 @@
+sources:
+  "0.20.1":
+    url: "https://devops.shield.ai/ShieldAI/ShieldAI/_git/quiche"
+    tag: "shieldai/0.20.1"

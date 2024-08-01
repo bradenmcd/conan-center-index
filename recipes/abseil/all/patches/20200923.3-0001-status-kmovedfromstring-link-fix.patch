@@ -1,0 +1,13 @@
+diff --git a/absl/status/status.cc b/absl/status/status.cc
+index a27fd8b3..a29d844e 100644
+--- a/absl/status/status.cc
++++ b/absl/status/status.cc
+@@ -189,7 +189,7 @@ const std::string* Status::EmptyString() {
+   return empty_string;
+ }
+ 
+-constexpr const char Status::kMovedFromString[];
++// constexpr const char Status::kMovedFromString[];
+ 
+ const std::string* Status::MovedFromString() {
+   static std::string* moved_from_string = new std::string(kMovedFromString);

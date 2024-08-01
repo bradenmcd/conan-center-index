@@ -17,6 +17,9 @@ sources:
   "20211102.0":
     url: "https://github.com/abseil/abseil-cpp/archive/20211102.0.tar.gz"
     sha256: "dcf71b9cba8dc0ca9940c4b316a0c796be8fab42b070bb6b7cab62b48f0e66c4"
+  "20200923.3":
+    url: "https://github.com/abseil/abseil-cpp/archive/20200923.3.tar.gz"
+    sha256: "ebe2ad1480d27383e4bf4211e2ca2ef312d5e6a09eba869fd2e8a5c5d553ded2"
 patches:
   "20240116.2":
     - patch_file: "patches/0003-absl-string-libm-20240116.patch"
@@ -61,3 +64,9 @@ patches:
     - patch_file: "patches/0003-absl-string-libm.patch"
       patch_description: "link libm to absl string"
       patch_type: "portability"
+  "20200923.3":
+    - patch_file: "patches/0003-absl-string-libm.patch"
+    - patch_file: "patches/0004-cpp-standard-20200923.patch"
+    - patch_file: "patches/20200923.3-0001-add-stringview-support.patch"
+    - patch_file: "patches/20200923.3-0001-status-kmovedfromstring-link-fix.patch"
+      patch_description: "Fix double definition linking error"

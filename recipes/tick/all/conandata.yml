@@ -1,0 +1,5 @@
+sources:
+  "1.2":
+    url: "https://github.com/pfultz2/Tick.git"
+    commit: "1a7762b5432f50ccb3cab6ac7f7d8032e327b547"
+

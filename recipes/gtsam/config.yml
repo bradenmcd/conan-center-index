@@ -5,3 +5,5 @@ versions:
     folder: all
   "4.0.3":
     folder: all
+  "4.2.0a9-shieldai.0":
+    folder: all

@@ -1,0 +1,7 @@
+sources:
+  "0.8.2-shieldai.1":
+      - url: "https://artifactory.shield.ai/artifactory/third-party-sources/releases.hashicorp.com/serf/0.8.2-shieldai.1/serf_0.8.2_shieldai_1_linux_amd64.zip"
+      - url: "https://artifactory.shield.ai/artifactory/third-party-sources/releases.hashicorp.com/serf/0.8.2-shieldai.1/serf_0.8.2_shieldai_1_linux_arm.zip"
+  "0.8.2":
+      - url: "https://artifactory.shield.ai:443/artifactory/third-party-sources/releases.hashicorp.com/serf/0.8.2/serf_0.8.2_linux_arm.zip"
+      - url: "https://artifactory.shield.ai:443/artifactory/third-party-sources/releases.hashicorp.com/serf/0.8.2/serf_0.8.2_linux_amd64.zip"
