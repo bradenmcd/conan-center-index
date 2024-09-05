@@ -3,9 +3,6 @@ sources:
     url: "https://github.com/Tencent/rapidjson/archive/v1.1.0.tar.gz"
     sha256: bf7ced29704a1e696fbccf2a2b4ea068e7774fa37f6d7dd4039d0787f8bed98e
   # More recent unofficial releases based on commits
-  "cci.20240816":
-    url: "https://github.com/Tencent/rapidjson/archive/7c73dd7de7c4f14379b781418c6e947ad464c818.tar.gz"
-    sha256: "91138ebc9c980e554e6bcf9d13537f9eebf42710e0b956fdca46181ad645f94d"
   "cci.20230929":
     url: "https://github.com/Tencent/rapidjson/archive/f9d53419e912910fd8fa57d5705fa41425428c35.tar.gz"
     sha256: "2b521dba5c22eaae6e6e7d4d304cb317e2cf8c687c70046b02792c02f78c127e"
