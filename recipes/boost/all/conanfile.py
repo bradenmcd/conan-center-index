@@ -75,6 +75,7 @@ class BoostConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "debug_symbols": [None, True, False],
         "header_only": [True, False],
         "error_code_header_only": [True, False],
         "system_no_deprecated": [True, False],
@@ -114,6 +115,7 @@ class BoostConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
+        "debug_symbols": None,
         "header_only": False,
         "error_code_header_only": False,
         "system_no_deprecated": False,
@@ -1256,6 +1258,9 @@ class BoostConan(ConanFile):
             flags.append("variant=debug")
         else:
             flags.append("variant=release")
+
+        if self.options.debug_symbols != None:
+            flags.append(f"debug-symbols={'on' if self.options.debug_symbols else 'off'}")
 
         for libname in self._configure_options:
             if not getattr(self.options, f"without_{libname}"):
